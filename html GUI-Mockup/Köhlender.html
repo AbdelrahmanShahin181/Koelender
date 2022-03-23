@@ -1,0 +1,54 @@
+<html>
+
+	<head>
+        <link rel = "stylesheet" type = "text/css" href = "style/style.css">
+	</head>
+
+	<body>
+		<title>Köhlender</title>
+		
+
+		<div id ="topbar" class = "nav">
+
+            <img src= "images/Logo.png" id = "logo">
+
+			<ul id = "topmenu">
+				<li><a href="#calendar">Kalender</a></li>
+				<li><a href="#overview">Übersicht</a></li>
+				<li><a href="#export">Export</a></li>
+			</ul>
+		</div>
+
+		<div id="sidebar" class = "sidenav">
+			<ul id = "sidemenu">
+				<li><input id="search" type="text" name="search" placeholder="Suche..."></li>
+                <li><h3 id = "filterHeader">Filter</h3></li>
+
+                <li><select required id="select_fachbereich" >
+                    <option value="" disabled selected hidden>Fachbereich...</option>   
+                    <option>test</option> 
+                    </select>            
+                </li>
+
+                <li><select required id="select_semester" >
+                    <option value="" disabled selected hidden>Semester...</option> 
+                    <option>test</option> 
+                    </select>                
+                </li>
+
+                <li><select required id="select_dozent" >
+                    <option value="" disabled selected hidden>Dozent...</option> 
+                    <option>test</option>  
+                    </select>               
+                </li>
+
+                <li><select required id="select_pruefungsform" >
+                    <option value="" disabled selected hidden>Prüfungsform...</option>       
+                    <option>test</option>   
+                    </select>        
+                </li>
+            </ul>
+		</div>
+	</body>
+
+</html>
