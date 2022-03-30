@@ -3,16 +3,29 @@ body {
     margin: 0px 0px 0px 0px;
     background-color: DAF2F2;
     font-family: sans-serif;
+    
 }
+
 
 #logo{
-    width: 60px;
+    width: 80px;
     float: left;
-}
 
+}
+img{
+    height: 123%;
+    width: 103%;
+    object-fit: contain;
+}
+.klausurplan{
+    height: 1%;
+    width: 1%;
+    
+}
 #filterHeader{
     color: 007F7F;
 }
+
 
 a:link{
     text-decoration:none;
@@ -86,6 +99,7 @@ select:invalid {
  color: 5DA0A0;
 }
 
+
 ul#topmenu{
     margin-top: 20px;
     margin-left: 70px;
@@ -93,7 +107,10 @@ ul#topmenu{
     font-size: 22;
 }
 
+
 ul#topmenu li {
     display: inline;
     padding: 0 15px 0 15px;
 }
+
+
