@@ -1,6 +1,6 @@
-from django.contrib import admin
 from django.urls import path
+from .views import PruefungView
 
 urlpatterns = [
-    path('', admin.site.urls),
+    path('', PruefungView.as_view()),
 ]
