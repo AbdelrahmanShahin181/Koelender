@@ -5,4 +5,4 @@ from .models import Pruefung
 class PruefungSerializer(serializers.ModelSerializer):
     class Meta:
         model= Pruefung
-        fields= ('name', 'fachbereich', 'semester')
+        fields= ('id','name', 'fachbereich', 'semester')
