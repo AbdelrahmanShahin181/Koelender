@@ -4,7 +4,7 @@
     <link rel="stylesheet" type="text/css" href="style/style.css">
 </head>
 
-<body>
+<body id="Body">
     <title>Köhlender</title>
 
     <div id="topbar" class="topnav">
@@ -18,8 +18,8 @@
                 <li><a href="#export">Export</a></li>
             </div>
             <div id="login">
-                <li><input id="username_in" type="text" name="search" placeholder="Username..."></li>
-                <li><input id="passwort_in" type="password" name="search" placeholder="Passwort..."></li>
+                <li><input id="username_in" type="text"  placeholder="Username..."></li>
+                <li><input id="passwort_in" type="password"  placeholder="Passwort..."></li>
                 <li><button id="login_bt" type="button">Login</button></li>
             </div>
             <li>
@@ -76,6 +76,16 @@
                             <option>Semester 7</option>
                         </select>
                     </li>
+                    <li><select required id="select_kurs">
+                        <option value="" disabled selected hidden>Kurs...</option>
+                        <option>IT-Sicherheit</option>
+                        <option>Webtechnologien 1</option>
+                        <option>Webtechnologien 2/option>
+                        <option>Mathematik für Informatiker II</option>
+                        <option>Algorithmen & Datenstrukturen/option>
+                        <option>Software Engineering</option>
+                    </select>
+                </li>
 
                     <li><select required id="select_dozent">
                             <option value="" disabled selected hidden>Dozent...</option>
