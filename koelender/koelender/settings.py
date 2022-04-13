@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'api.apps.ApiConfig',
     'rest_framework',
     'koelender',
+    'import_export',
 ]
 
 MIDDLEWARE = [
