@@ -1,0 +1,107 @@
+
+/*Landing-page-------------------------------------------------------------------------*/
+
+#inner_frame{
+    overflow:hidden;
+}
+
+#welcome {
+    white-space: nowrap;
+    text-align: center;
+    font-size: 65px;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 10px;
+    margin-bottom: 10px;
+    transition: 0.5s;
+    animation-duration: 4s;
+    animation-name: slidedown;
+    animation-iteration-count: 1;
+    animation-timing-function:ease-in-out;
+    animation-direction: alternate;
+}
+
+#bigPic {
+    width: 50%;
+    height: 50%;
+    display:block;
+    margin-left: auto;
+    margin-right: auto ;
+    padding-left: 5px;
+    padding-right: 5px;
+    min-width: 250px;
+    min-height: 250px;
+    max-width: 500px;
+    max-height: 500px;
+    overflow:visible;
+    transition: 3s;
+    animation-duration: 4s;
+    animation-name: logoturn;
+    animation-iteration-count: 1;
+    animation-timing-function:ease-in-out;
+    animation-direction: alternate;
+}
+
+#bigPic #letters g{
+    transform-box:fill-box;
+    transform-origin: center;
+    transition:3s;
+    animation-duration: 4s;
+    animation-name: logoturn2;
+    animation-iteration-count: 1;
+    animation-timing-function:ease-in-out;
+    animation-direction: alternate;
+}
+
+#bigPic #rims{
+    fill: var(--medium_color);
+}
+
+#bigPic #letters{
+    fill: var(--light_color);
+    filter: drop-shadow( 0px 0px 2px var(--medium_color))
+    drop-shadow( 0px 0px 2px var(--medium_color))
+    drop-shadow( 0px 0px 4px var(--medium_color));
+}
+
+@keyframes logoturn{
+    from {
+        transform: rotate(0deg);
+    }
+    
+    to {
+        transform: rotate(360deg);
+    }
+}
+@keyframes logoturn2{
+    from {
+        transform: rotate(0deg);
+    }
+    
+    to {
+        transform: rotate(-720deg);
+    }
+}
+@keyframes slidedown{
+    from {
+        transform: translate(0,-500px);
+    }
+    
+    to {
+        transform: translate(0,0);
+    }
+}
+
+@media(max-width: 600px){
+    #welcome {
+        white-space: normal;
+        font-size: 50px;
+    }
+}
+
+@media(max-height: 460px){ 
+    #welcome {
+        padding-top: 15px;
+        margin-top: 15px;
+    }
+}
