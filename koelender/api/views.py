@@ -12,8 +12,8 @@ from rest_framework import generics, status
 from rest_framework.views import APIView
 from rest_framework.response import Response
 
-from .models import Pruefung, Studiengang
-from .serializers import PruefungSerializer, StudiengangSerializer
+from .models import Pruefung
+from .serializers import PruefungSerializer
 
 from rest_framework.decorators import api_view
 
