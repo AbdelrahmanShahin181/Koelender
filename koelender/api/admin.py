@@ -20,7 +20,7 @@ class PruefungResource(resources.ModelResource):
     pruefungsform= fields.Field(column_name='Prüfungsform', attribute='pruefungsform')
     dauer= fields.Field(column_name='Dauer', attribute='dauer')
     teilnehmerzahl= fields.Field(column_name='TN-Zahlen', attribute='teilnehmerzahl')
-
+    startzeit= fields.Field(column_name='Startzeit', attribute='startzeit')
     class Meta:
         model = Pruefung
         fields = ('id','pnr')
@@ -29,8 +29,9 @@ class PruefungResource(resources.ModelResource):
 
 class PruefungAdmin(ImportExportModelAdmin):
     resource_class= PruefungResource
-    list_display=('name', 'pruefer', 'datum')
-    list_filter= ('semester', 'studiengang', 'abschluss', 'pruefungsOrdnung')
+    list_display=('name', 'pruefer', 'datum','abschluss','pruefungsOrdnung','startzeit')
+    list_filter= ['semester', 'studiengang', 'abschluss', 'pruefungsOrdnung']
+    search_fields = ['name','pruefer']
 
 admin.site.register(Pruefung, PruefungAdmin)
 
