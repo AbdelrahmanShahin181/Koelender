@@ -23,5 +23,6 @@ urlpatterns = [
     path('api/',include('api.urls')),
     #path('', index.webseite),
     path('',TemplateView.as_view(template_name='index.html')),
-
+    path('kalender/',TemplateView.as_view(template_name='index.html')),
+    path('uebersicht/',TemplateView.as_view(template_name='index.html')),
 ]

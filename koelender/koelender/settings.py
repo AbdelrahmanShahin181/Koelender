@@ -42,19 +42,27 @@ INSTALLED_APPS = [
     'rest_framework',
     'koelender',
     'import_export',
+    'corsheaders',
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    
 ]
 
 ROOT_URLCONF = 'koelender.urls'
+
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:8000",
+    "http://localhost:3000",
+]
 
 TEMPLATES = [
     {
@@ -90,7 +98,7 @@ DATABASES = {
          'ENGINE': 'django.db.backends.mysql',
          'NAME': 'koelender',
          'USER': 'root',
-         'PASSWORD': 'root',
+         'PASSWORD': '',
          'HOST': 'localhost',
          'PORT': '3306',
      }
@@ -141,3 +149,5 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 STATICFILES_DIRS=[
     os.path.join(BASE_DIR,'frontend/build/static'),
 ]
+
+IMPORT_EXPORT_USE_TRANSACTIONS = True
