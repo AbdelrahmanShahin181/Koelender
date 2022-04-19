@@ -1,6 +1,5 @@
-
-import React, {useState,useEffect} from 'react';
-
+import React from 'react';
+import { updateState } from './Uebersicht';
 
 function SpaltenScript() {
     const columns_btn = document.querySelector('.hide_columns');
@@ -17,9 +16,9 @@ function SpaltenScript() {
 
 function hideShowTable(col_name)
 {
-    console.log(col_name);
+    //console.log(col_name);
     var checkbox_val=document.getElementById(col_name).className;
-    console.log(checkbox_val);
+    //console.log(checkbox_val);
     if(checkbox_val==="show")
     {
         let all_col=document.getElementsByClassName(col_name);
@@ -43,6 +42,8 @@ function hideShowTable(col_name)
     }
 }
 
+
+
 export default class KalenderContent extends React.Component{
 
     constructor() {
@@ -50,8 +51,11 @@ export default class KalenderContent extends React.Component{
         this.state = {
             error:null,
             isLoaded:true,
-            pruefungen: []
+            pruefungen: [],
+            aktiveFilter: [],
+            searchItem: ''
         };
+        updateState = updateState.bind(this)
     }
 
     componentDidMount() {
@@ -67,7 +71,7 @@ export default class KalenderContent extends React.Component{
             (result) => {
                 this.setState({
                     isLoaded: true,
-                    pruefungen: result
+                    pruefungen: result,
                     
                 });
             },
@@ -87,7 +91,6 @@ export default class KalenderContent extends React.Component{
 
         const { error, isLoaded, pruefungen} = this.state;
         
-        
         if(error) {return <div>Error: {error.message}</div>}
         else if(!isLoaded) {return <div>Loading...</div>}
 
@@ -99,25 +102,55 @@ export default class KalenderContent extends React.Component{
 
             if(pruefungen[0]){
                 var pruefungenKeys = Object.keys(pruefungen[0]);
+                let x = 0;
                 
                 for(let i = 0; i<pruefungen.length; i++) {
                     var pruefungenInstance = [];
                     let pruefungenValues = Object.values(pruefungen[i]);
-                    
+                    let filteredOut = false;
+                    let containsSearch = false
+
                     for(let j = 1; j<pruefungenValues.length; j++){
                         pruefungenInstance.push(<td className = {pruefungenKeys[j]+'_col'}>{pruefungenValues[j]}</td>);
+                        if(this.state.aktiveFilter[j]!==undefined&&this.state.aktiveFilter[j]!=pruefungenValues[j]){
+                            filteredOut = true;
+                            //console.log(this.state.aktiveFilter[j]);
+                            //console.log(pruefungenValues[j]);
+                        }
+                        if(pruefungenValues[j].toString().match(this.state.searchItem)){
+                            containsSearch = true;
+                            /*console.log(containsSearch);
+                            console.log(this.state.searchItem)
+                            console.log(pruefungenValues[j].toString())*/
+                        }
                     }
-                    if(i%2===1){
-                        pruefungenListe.push(<tr className = 'second'>{pruefungenInstance}</tr>)
-                    } else {
-                        pruefungenListe.push(<tr>{pruefungenInstance}</tr>)
+                    
+                    if(!filteredOut&&containsSearch) {
+                        if(x%2===1){
+                            pruefungenListe.push(<tr className = 'second'>{pruefungenInstance}</tr>)
+                        } else {
+                            pruefungenListe.push(<tr>{pruefungenInstance}</tr>)
+                        }
+                        x++;
                     }
                 }
 
                 
                 for(let i = 1; i<pruefungenKeys.length; i++){
-                    pruefungenHeader.push(<td style = {{textTransform: "capitalize"}} id = {pruefungenKeys[i]+'_col_head'}><b>{pruefungenKeys[i]}</b></td>);
-                    spaltenFilter.push(<li><input type="checkbox" className="show" id={pruefungenKeys[i]+"_col"} onChange={()=>hideShowTable(pruefungenKeys[i]+"_col")}Checked/><label style = {{textTransform: "capitalize"}}>{pruefungenKeys[i]}</label></li>)
+                    pruefungenHeader.push(
+                    <td style = {{textTransform: "capitalize"}} 
+                        id = {pruefungenKeys[i]+'_col_head'}>
+                            <b>{pruefungenKeys[i]}</b>
+                    </td>);
+                    spaltenFilter.push(
+                    <li>
+                        <input type="checkbox" 
+                            className="show" 
+                            id={pruefungenKeys[i]+"_col"} 
+                            onChange={()=>hideShowTable(pruefungenKeys[i]+"_col")} 
+                            defaultChecked='true'/>
+                        <label style = {{textTransform: "capitalize"}}>{pruefungenKeys[i]}</label>
+                    </li>)
                 }
                 
             }           
@@ -146,6 +179,8 @@ export default class KalenderContent extends React.Component{
                             </tr>
                         </thead>
                         <tbody>
+                            {/*<tr>{this.state.aktiveFilter}</tr>}
+                            {<tr>{this.state.searchItem}</tr>*/}
                             {pruefungenListe}
                             {/*rows*/}
                         </tbody>

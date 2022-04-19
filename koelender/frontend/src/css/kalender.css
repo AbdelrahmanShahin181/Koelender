@@ -18,14 +18,14 @@
 #month tr td {
     font-size: 20;
     font-weight: bold;   
-    width:40px;
     margin-right: 10px;
     margin-left: 10px;
     border-bottom-width: 0;
+    overflow-wrap: anywhere;
 }
 
 #cur_month {
-    width: 0;
+    width: 30%;
     overflow: hidden;
     margin-left:0;
     margin-right:0;
@@ -135,13 +135,14 @@
     float: center;
     border-bottom-width: 0;
     min-width: 0px;
+    overflow-wrap: anywhere;
 }
 
 @media(max-width: 480px) {
     #month {
         padding-left: 5px;
         padding-right: 5px;
-        
+        width: 100%;
     }
     #calendar_table tbody tr td, #calendar_table thead tr th {
         font-size: 12px;
@@ -155,7 +156,5 @@
 
     .day:hover #content{
         height: 38px;
-    }
-
-    
+    }    
 }

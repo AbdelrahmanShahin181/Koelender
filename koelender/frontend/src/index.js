@@ -16,8 +16,6 @@ root.render(
         
       </Routes>
   </BrowserRouter>
-  /*<React.StrictMode>
-    <Kalender />
-  </React.StrictMode>,*/
+  
 );
 

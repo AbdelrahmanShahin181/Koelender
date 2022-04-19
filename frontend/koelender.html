@@ -1,0 +1,118 @@
+<html>
+
+<head>
+    <link rel="stylesheet" type="text/css" href="style/style.css">
+</head>
+
+<body id="Body">
+    <title>Köhlender</title>
+
+    <div id="topbar" class="topnav">
+
+        <a href="Landing.html" target="myframe"><img src="images/Logo.png" id="logo"></a>
+
+        <ul id="topmenu">
+            <div id="myLinks">
+                <li><a href="Kalender.html" target="myframe">Kalender</a></li>
+                <li><a href="Uebersicht.html" target="myframe">Übersicht</a></li>
+                <li><a href="#export">Export</a></li>
+            </div>
+            <div id="login">
+                <li><input id="username_in" type="text"  placeholder="Username..."></li>
+                <li><input id="passwort_in" type="password"  placeholder="Passwort..."></li>
+                <li><button id="login_bt" type="button">Login</button></li>
+            </div>
+            <li>
+                <button class="hamburger">
+                    <div class="bar"></div>
+                </button>
+            </li>
+        </ul>
+
+    </div>
+
+    <div id="mobilebar1" class="sidenav">
+        <ul id="mobmenu">
+            <div id="mob_myLinks">
+                <li><a href="Kalender.html" target="myframe">Kalender</a></li>
+                <li><a href="Uebersicht.html" target="myframe">Übersicht</a></li>
+                <li><a href="#export">Export</a></li>
+            </div>
+            <div id="mob_login">
+                <li><input id="username_in" type="text" name="search" placeholder="Username..."></li>
+                <li><input id="passwort_in" type="password" name="search" placeholder="Passwort..."></li>
+                <li><button id="login_bt" type="button">Login</button></li>
+            </div>
+        </ul>
+    </div>
+
+    <div id="sidebar" class="sidenav">
+        <button class="blend_in"><</button>
+                <ul id="sidemenu">
+                    <li><input id="search" type="text" name="search" placeholder="Suche..."></li>
+                    <li>
+                        <h3 id="filterHeader">Filter</h3>
+                    </li>
+
+                    <li><select required id="select_fachbereich">
+                            <option value="" disabled selected hidden>Fachbereich...</option>
+                            <option>Architektur</option>
+                            <option>Bau- und Umweltingenieurswesen</option>
+                            <option>Elektrotechnik und Informatik</option>
+                            <option>Geodäsie</option>
+                            <option>Mechatronik und Maschinenbau</option>
+                            <option>Wirtschaft</option>
+                        </select>
+                    </li>
+
+                    <li><select required id="select_semester">
+                            <option value="" disabled selected hidden>Semester...</option>
+                            <option>Semester 1</option>
+                            <option>Semester 2</option>
+                            <option>Semester 3</option>
+                            <option>Semester 4</option>
+                            <option>Semester 5</option>
+                            <option>Semester 6</option>
+                            <option>Semester 7</option>
+                        </select>
+                    </li>
+                    <li><select required id="select_kurs">
+                        <option value="" disabled selected hidden>Kurs...</option>
+                        <option>IT-Sicherheit</option>
+                        <option>Webtechnologien 1</option>
+                        <option>Webtechnologien 2/option>
+                        <option>Mathematik für Informatiker II</option>
+                        <option>Algorithmen & Datenstrukturen/option>
+                        <option>Software Engineering</option>
+                    </select>
+                </li>
+
+                    <li><select required id="select_dozent">
+                            <option value="" disabled selected hidden>Dozent...</option>
+                            <option>Herr Mustermann</option>
+                            <option>Frau Musterfrau</option>
+                        </select>
+                    </li>
+
+                    <li><select required id="select_pruefungsform">
+                            <option value="" disabled selected hidden>Prüfungsform...</option>
+                            <option>Open-Book Klausur</option>
+                            <option>Onlineklausur -mit Fernaufsicht-</option>
+                            <option>Mündliche Prüfung</option>
+                            <option>Klausur 90 Minuten -präsenz-</option>
+                            <option>Klausur 120 Minuten -präsenz-</option>
+                        </select>
+                    </li>
+                    <li>
+                        <button id = "search_btn" type="button">Suchen</button>
+                    </li>
+                </ul>
+    </div>
+    <div>
+        <iframe name="myframe" id="theframe" src="Landing.html"></iframe>
+    </div>
+
+    <script src="main.js"></script>
+</body>
+
+</html>

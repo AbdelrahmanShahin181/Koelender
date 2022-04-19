@@ -9,9 +9,23 @@ import Filter from '../navigation/Filter.jsx';
 import UebersichtContent from './UebersichtContent.jsx'
 import React from 'react';
 
-
+export function updateState(aktiveFilter, searchItem){
+    this.setState({aktiveFilter, searchItem})
+}
 
 export default class Uebersicht extends React.Component {
+    constructor(props) {
+        super(props)
+        this.state = {aktiveFilter: [], searchItem: ''}
+        this.updateFilter = this.updateFilter
+
+    }
+    updateFilter = (aktiveFilter, searchItem) => {
+        this.setState({aktiveFilter, searchItem}); 
+        //console.log(this.state.searchItem);
+        this.updateStateChild(aktiveFilter, searchItem)
+    }
+    updateStateChild(aktiveFilter, searchItem) {updateState(aktiveFilter, searchItem)}
     render() {
 
         return (    
@@ -31,12 +45,9 @@ export default class Uebersicht extends React.Component {
             <div id="mobilebar" className="sidenav">
                 <Navigation type="mob"/>
             </div>
-            <Filter/>
-
-            
-
+            <Filter updateFilterParent = {this.updateFilter}/>
             <Content content = {<UebersichtContent/>}/>
-            
+            <div>{this.state.aktiveFilter}</div>
             </>
         )
     }

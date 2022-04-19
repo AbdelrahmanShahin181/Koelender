@@ -23,8 +23,8 @@ class Pruefung(models.Model):
     dauer= models.IntegerField()
     teilnehmerzahl= models.IntegerField()
     pruefungsOrdnung= models.IntegerField()
-    #createTime= models.DateTimeField(auto_created=True, default= datetime.now)
-    #updateTime= models.DateTimeField(auto_created=True, default= datetime.now)
+    createTime= models.DateTimeField(auto_created=True, default= datetime.now)
+    updateTime= models.DateTimeField(auto_created=True, default= datetime.now)
     fachbereich = models.ManyToManyField(Studiengang)
 
     def __str__(self):
