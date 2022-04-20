@@ -117,6 +117,9 @@ export default class KalenderContent extends React.Component{
                             //console.log(this.state.aktiveFilter[j]);
                             //console.log(pruefungenValues[j]);
                         }
+                        if(pruefungenValues[j]==null){
+                            pruefungenValues[j]="Abdo"
+                        }
                         if(pruefungenValues[j].toString().match(this.state.searchItem)){
                             containsSearch = true;
                             /*console.log(containsSearch);
