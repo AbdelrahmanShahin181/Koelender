@@ -139,6 +139,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
 
 STATIC_URL = 'static/'
+MEDIA_URL = '/images/'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
@@ -146,7 +147,11 @@ STATIC_URL = 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 STATICFILES_DIRS=[
+    BASE_DIR / 'frontend/static',
+    BASE_DIR / 'frontend/build/static',
     os.path.join(BASE_DIR,'frontend/build/static'),
 ]
+
+MEDIA_ROOT  = 'static/images'
 
 IMPORT_EXPORT_USE_TRANSACTIONS = True

@@ -67,9 +67,12 @@ export default class Filter extends React.Component {
                     //console.log(pruefungenValues);
                     for(let j = 1; j<pruefungenValues.length; j++){
                         //console.log(pruefungenOptionen[j].includes(pruefungenValues[j]));
-                        if(!pruefungenOptionen[j].includes(pruefungenValues[j])) {
+                        //if(!pruefungenOptionen[j].includes(pruefungenValues[j])) {
+                        if((!pruefungenOptionen[j].some(x => x.trim().toLowerCase() == pruefungenValues[j].trim().toLowerCase()))
+                            /*&& (!pruefungenOptionen[j].toString().trim() == "")
+                            && (!pruefungenOptionen[j] == null)*/) {
                             pruefungenOptionen[j].push(
-                                pruefungenValues[j]
+                                pruefungenValues[j].trim()
                             );
                         }
                     }
