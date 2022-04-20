@@ -142,7 +142,7 @@ export default class KalenderContent extends React.Component{
                         if(pruefungenValues[j]==null){
                             pruefungenValues[j]="Abdo"
                         }
-                        if(pruefungenValues[j].toString().match(this.state.searchItem)){
+                        if(pruefungenValues[j].toString().toLowerCase().match(this.state.searchItem.toLocaleLowerCase())){
                             containsSearch = true;
                             /*console.log(containsSearch);
                             console.log(this.state.searchItem)
