@@ -66,9 +66,21 @@ export default class Filter extends React.Component {
                     let pruefungenValues = Object.values(pruefungen[i]);
                     //console.log(pruefungenValues);
                     for(let j = 1; j<pruefungenValues.length; j++){
-                        pruefungenOptionen[j].push(
-                            <option>{pruefungenValues[j]}</option>
-                        );
+                        //console.log(pruefungenOptionen[j].includes(pruefungenValues[j]));
+                        if(!pruefungenOptionen[j].includes(pruefungenValues[j])) {
+                            pruefungenOptionen[j].push(
+                                pruefungenValues[j]
+                            );
+                        }
+                    }
+                }
+                //console.log(pruefungenOptionen);
+                //console.log(pruefungenOptionen.length);
+                for(let i = 1; i<pruefungenOptionen.length; i++) {
+                    //console.log(pruefungenOptionen[i]);
+                    pruefungenOptionen[i].sort();
+                    for(let j = 0; j<pruefungenOptionen[i].length; j++){
+                        pruefungenOptionen[i][j] = <option>{pruefungenOptionen[i][j]}</option>;
                     }
                     
                 }

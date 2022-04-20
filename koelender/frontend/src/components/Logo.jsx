@@ -7,7 +7,7 @@ export default function Logo({name}) {
         viewBox="0 0 100 99.999997"
         version="1.1"
         id={name}
-        xmlns="http://www.w3.org/2000/svg"
+        //xmlns="http://www.w3.org/2000/svg"
         >
 
                 <defs

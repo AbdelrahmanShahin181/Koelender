@@ -6,8 +6,9 @@ import Navigation from '../navigation/Navigation.jsx';
 import Hamburger from '../navigation/Hamburger.jsx';
 import Content from '../Content.jsx';
 import Filter from '../navigation/Filter.jsx';
-import UebersichtContent from './UebersichtContent.jsx'
+import UebersichtContent, {hideShowTable} from './UebersichtContent.jsx'
 import React from 'react';
+
 
 export function updateState(aktiveFilter, searchItem){
     this.setState({aktiveFilter, searchItem})
@@ -20,12 +21,18 @@ export default class Uebersicht extends React.Component {
         this.updateFilter = this.updateFilter
 
     }
+
+    componentDidMount() {
+        //hideShowTable();
+    }
+
     updateFilter = (aktiveFilter, searchItem) => {
         this.setState({aktiveFilter, searchItem}); 
         //console.log(this.state.searchItem);
         this.updateStateChild(aktiveFilter, searchItem)
     }
     updateStateChild(aktiveFilter, searchItem) {updateState(aktiveFilter, searchItem)}
+
     render() {
 
         return (    
@@ -47,7 +54,6 @@ export default class Uebersicht extends React.Component {
             </div>
             <Filter updateFilterParent = {this.updateFilter}/>
             <Content content = {<UebersichtContent/>}/>
-            <div>{this.state.aktiveFilter}</div>
             </>
         )
     }
