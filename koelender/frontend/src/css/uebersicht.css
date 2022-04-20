@@ -1,0 +1,193 @@
+
+/*Uebersicht----------------------------------------------------------------------------*/
+
+[type="checkbox"] {
+    height: 15px;
+    width: 15px;
+    margin-right: 8px;
+}
+
+
+#checkboxes {
+    direction:rtl;
+    left: -200px;
+    top: 0px;
+    overflow: auto;
+    z-index: 10;
+}
+
+#checkboxes ul {
+    padding-top: 30px;
+    margin-top: 0;
+    list-style: none;
+    padding-left: 10%;
+    direction: ltr;
+}
+
+#checkboxes ul li{
+    white-space: nowrap;
+    padding-bottom: 5px;
+    padding-top: 5px;
+    
+}
+
+#checkboxes.is-active {
+    left: 0px;
+}
+
+#checkboxes.menu-is-active {
+    transform: translate(200px,0);
+}
+
+.hide_columns{
+    position:fixed;
+    z-index: 12;
+    top: 125px;
+    left:0px;
+    width: 75px;
+    height: 25px;
+    border-color: var(--dark_color);
+    transition: 0.5s;
+    padding: 0 0 0 0;
+    white-space: nowrap;
+    direction:ltr;
+    
+}
+
+.hide_columns.is-active{
+    transform: translate(175px, 0px);
+    width: 25px;
+}
+
+.hide_columns.menu-is-active{
+    transform: translate(200px, 0px);
+}
+
+.hide_columns.is-active.menu-is-active{
+    transform: translate(375px, 0px);
+}
+
+#header_overview{
+    padding-left: 100px;
+    padding-top: 30px;
+}
+
+.add{
+    position:relative;
+    display:block;
+    margin-right:auto;
+    margin-left: auto;
+    width: 20px;
+    height: 20px;
+    font-weight: bold;
+    border-color: var(--dark_color);
+    padding:0;
+    text-align: bottom;
+    overflow:hidden;
+    border-radius: 7px;
+}
+
+.add .bar, .add:after {
+    position: relative;
+    padding: 0px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: auto;
+    margin-bottom: auto;
+    vertical-align: middle;
+    content: '';
+    display: flex;
+    width: 80%;
+    height: 3px;
+    
+    background-color: var(--dark_color);
+    transition: 0.5s;
+}
+
+td {
+    padding-left: 8px;
+    padding-right: 8px;
+    word-wrap: break-word;
+}
+
+th {
+    padding-left: 8px;
+    padding-right: 8px;
+    text-align: left;
+}
+
+.add:after {
+    transform: rotate(90deg) translate(-1.5px, 0px) ;
+}
+
+.add.is-active:after {
+    transform: rotate(180deg) translate(0px, 1px) ;
+}
+
+.add .bar {
+    transform: translate(0px, 1.5px) ;
+}
+
+/*#table_start {
+    padding-left: 40px;
+}*/
+
+.table_end {
+    text-align: center;
+}
+
+#klausurplan{
+    width: 100%;
+}
+
+#overview_table {
+    table-layout: auto;
+    min-width: 0px;
+}
+
+#overview_table th, #overview_table td {
+    min-width: 40px;
+}
+
+#inner_frame{
+    overflow:hidden;
+}
+
+#ov_content{
+    top: 100px;
+    left: 0;
+    border-width: 0px;
+    width: 100%;
+    height: 100%;
+    border-color:blue;
+    border-style: solid;;
+    overflow:auto;
+}
+
+.second {
+    background-color: var(--light_medium_color);
+}
+
+
+@media (max-width: 400px) {
+    #checkboxes{
+        left: -50vw;
+    }
+    #checkboxes.menu-is-active {
+        transform: translate(50vw,0);
+    }
+
+    .hide_columns.is-active{
+        transform: translate(calc(50vw - 25px), 0px);
+        width: 25px;
+    }
+    
+    .hide_columns.menu-is-active{
+        transform: translate(50vw, 0px);
+    }
+    
+    .hide_columns.is-active.menu-is-active{
+        transform: translate(calc(100vw - 25px), 0px);
+    }
+    
+}
