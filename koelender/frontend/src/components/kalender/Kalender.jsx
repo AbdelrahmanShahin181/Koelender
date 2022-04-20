@@ -10,12 +10,29 @@ import KalenderContent from './KalenderContent.jsx'
 import React from 'react';
 import {renderCalendar} from '../../js/kalender';
 
+export function updateState(aktiveFilter, searchItem){
+    this.setState({aktiveFilter, searchItem})
+}
 
 export default class Kalender extends React.Component {
+
+    constructor(props) {
+        super(props)
+        this.state = {aktiveFilter: [], searchItem: ''}
+        this.updateFilter = this.updateFilter
+
+    }
 
     componentDidMount() {
         renderCalendar();
     }
+
+    updateFilter = (aktiveFilter, searchItem) => {
+        this.setState({aktiveFilter, searchItem}); 
+        //console.log(this.state.searchItem);
+        this.updateStateChild(aktiveFilter, searchItem)
+    }
+    updateStateChild(aktiveFilter, searchItem) {updateState(aktiveFilter, searchItem)}
 
     render() {
         return (    
@@ -35,7 +52,7 @@ export default class Kalender extends React.Component {
             <div id="mobilebar" className="sidenav">
                 <Navigation type="mob"/>
             </div>
-            <Filter/>
+            <Filter updateFilterParent = {this.updateFilter}/>
             <Content content = {<KalenderContent/>}/>
             
             </>

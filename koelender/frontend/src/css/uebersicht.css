@@ -105,9 +105,10 @@
 }
 
 td {
+    max-width: 250px;
     padding-left: 8px;
     padding-right: 8px;
-    word-wrap: break-word;
+    overflow-wrap: normal;
 }
 
 th {

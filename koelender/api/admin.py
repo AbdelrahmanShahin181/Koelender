@@ -1,10 +1,4 @@
 from django.contrib import admin
-<<<<<<< HEAD
-from .models import Pruefung,Studiengang
-
-admin.site.register(Pruefung)
-admin.site.register(Studiengang)
-=======
 from .models import Pruefung
 from import_export.admin import ImportExportModelAdmin
 from import_export import resources, fields
@@ -43,4 +37,3 @@ admin.site.register(Pruefung, PruefungAdmin)
 
 
 
->>>>>>> 53538ffa26e726afe9a98ffc3494ce406c6e4d41

@@ -14,7 +14,7 @@ function SpaltenScript() {
     columns_btn.childNodes[1].data = "";
 }
 
-function hideShowTable(col_name)
+export function hideShowTable(col_name)
 {
     //console.log(col_name);
     var checkbox_val=document.getElementById(col_name).className;
@@ -43,7 +43,6 @@ function hideShowTable(col_name)
 }
 
 
-
 export default class KalenderContent extends React.Component{
 
     constructor() {
@@ -55,7 +54,7 @@ export default class KalenderContent extends React.Component{
             aktiveFilter: [],
             searchItem: ''
         };
-        updateState = updateState.bind(this)
+        updateState = updateState.bind(this);
     }
 
     componentDidMount() {
@@ -81,7 +80,8 @@ export default class KalenderContent extends React.Component{
                     error
                 });
             }
-        )
+        );
+        //hideShowTable();
     }
     
 
@@ -95,6 +95,8 @@ export default class KalenderContent extends React.Component{
         else if(!isLoaded) {return <div>Loading...</div>}
 
         else {
+
+            
             
             var pruefungenListe = [];
             var pruefungenHeader = [];
@@ -103,21 +105,41 @@ export default class KalenderContent extends React.Component{
             if(pruefungen[0]){
                 var pruefungenKeys = Object.keys(pruefungen[0]);
                 let x = 0;
+
+                for(let i = 1; i<pruefungenKeys.length; i++){
+                    pruefungenHeader.push(
+                    <td style = {{textTransform: "capitalize"}} 
+                        id = {pruefungenKeys[i]+'_col_head'}>
+                            <b>{pruefungenKeys[i]}</b>
+                    </td>);
+                    spaltenFilter.push(
+                    <li>
+                        <input type="checkbox" 
+                            className="show" 
+                            id={pruefungenKeys[i]+"_col"} 
+                            onChange={()=>hideShowTable(pruefungenKeys[i]+"_col")} 
+                            defaultChecked='true'/>
+                        <label style = {{textTransform: "capitalize"}}>{pruefungenKeys[i]}</label>
+                    </li>);
                 
+                }
+
                 for(let i = 0; i<pruefungen.length; i++) {
                     var pruefungenInstance = [];
                     let pruefungenValues = Object.values(pruefungen[i]);
                     let filteredOut = false;
                     let containsSearch = false
-
+            
                     for(let j = 1; j<pruefungenValues.length; j++){
+                        
                         pruefungenInstance.push(<td className = {pruefungenKeys[j]+'_col'}>{pruefungenValues[j]}</td>);
+                        
                         if(this.state.aktiveFilter[j]!==undefined&&this.state.aktiveFilter[j]!=pruefungenValues[j]){
                             filteredOut = true;
                             //console.log(this.state.aktiveFilter[j]);
                             //console.log(pruefungenValues[j]);
                         }
-                        if(pruefungenValues[j].toString().match(this.state.searchItem)){
+                        if(pruefungenValues[j].toString().toLowerCase().match(this.state.searchItem.toLowerCase())){
                             containsSearch = true;
                             /*console.log(containsSearch);
                             console.log(this.state.searchItem)
@@ -134,26 +156,10 @@ export default class KalenderContent extends React.Component{
                         x++;
                     }
                 }
-
                 
-                for(let i = 1; i<pruefungenKeys.length; i++){
-                    pruefungenHeader.push(
-                    <td style = {{textTransform: "capitalize"}} 
-                        id = {pruefungenKeys[i]+'_col_head'}>
-                            <b>{pruefungenKeys[i]}</b>
-                    </td>);
-                    spaltenFilter.push(
-                    <li>
-                        <input type="checkbox" 
-                            className="show" 
-                            id={pruefungenKeys[i]+"_col"} 
-                            onChange={()=>hideShowTable(pruefungenKeys[i]+"_col")} 
-                            defaultChecked='true'/>
-                        <label style = {{textTransform: "capitalize"}}>{pruefungenKeys[i]}</label>
-                    </li>)
-                }
-                
-            }           
+            }  
+            
+            
 
             return(
                 <>
