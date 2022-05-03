@@ -1,0 +1,28 @@
+:root{
+
+    --light_color: #DAF2F2;
+    --light_medium_color: #B0CFF7;
+    --medium_color: #4D8CDE;
+    --dark_color: #0C0B61;
+    --writing_light_color: var(--light_color);
+    --writing_medium_color: var(--medium_color);
+    --writing_dark_color: var(--dark_color);
+    --writing_header_color: var(--dark_color);
+    --button_fill_color: var(--medium_color);
+    --button_hover_color: var(--light_color);
+    --button_rim_color: var(--light_color);
+    --writing_button_hover_color: var(--dark_color);
+    --shadow_color: var(--dark_color);
+    --sidemenu_color: var(--medium_color);
+    --logo_color: var(--medium_color);
+    --calendar_rim_hover_color: var(--medium_color);
+    --calendar_content_hover_color: var(--light_color);
+    --calendar_writing_hover_color: var(--dark_color);
+    --calendar_today_color: var(--medium_color);
+    --calendar_today_hover_color: var(--light_medium_color);
+    --calendar_appointment_color: var(--light_medium_color);
+    --calendar_appointment_hover_color: var(--medium_color);
+    --calendar_appointment_writing_color: var(--dark_color);
+    --calendar_appointment_writing_hover_color: var(--dark_color);
+    --top_input_rim_color: var(--medium_color);
+}

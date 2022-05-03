@@ -1,5 +1,6 @@
 import React from 'react';
-import { updateState } from './Uebersicht';
+import { updateState } from '../landing/Structure';
+import '../../css/uebersicht.css';
 
 function SpaltenScript() {
     const columns_btn = document.querySelector('.hide_columns');
@@ -144,7 +145,7 @@ export default class KalenderContent extends React.Component{
                     }
                 }
 
-                console.log(typeof(pruefungenListe));
+                //console.log(typeof(pruefungenListe));
                 
             }  
             

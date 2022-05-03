@@ -1,9 +1,8 @@
 
 import React from 'react';
-//import { renderCalendar } from '../../js/kalender';
-//import {prevMonth, nextMonth, renderCalendar} from './KalenderDays';
-import { updateState } from './Kalender';
+import { updateState } from '../landing/Structure';
 import KalenderPopup from './KalenderPopup';
+import '../../css/kalender.css';
 
 
 
@@ -23,7 +22,7 @@ export default class KalenderContent extends React.Component{
             pruefungenInfos: [],
             calendar: [],
             date: "",
-            infoName:""
+            infos:[]
         };
         updateState = updateState.bind(this);
         //updateState = () => {updateState(); renderCalendar(this.state.pruefungenInfos, this.state.date)}
@@ -102,7 +101,7 @@ export default class KalenderContent extends React.Component{
                 for(let j = 0; j<infos[date.getMonth()*31+y].length; j++)
                 if (infos[date.getMonth()*31+y][j][0] === date.getFullYear()) {
                     
-                    event.push(<div onClick={()=>{this.togglePopup(infos[date.getMonth()*31+y][j][1])}} >{infos[date.getMonth()*31+y][j][1]}</div>);
+                    event.push(<div onClick={()=>{this.togglePopup(infos[date.getMonth()*31+y][j])}} >{infos[date.getMonth()*31+y][j][1]}</div>);
                     
                 }
                 else {
@@ -164,9 +163,9 @@ export default class KalenderContent extends React.Component{
 
     
 
-    togglePopup(name) {
+    togglePopup(infos) {
         this.setState({
-            infoName: name,
+            infos: infos,
             showPopup: !this.state.showPopup
         });
     }
@@ -200,7 +199,7 @@ export default class KalenderContent extends React.Component{
                 });
             }
         );
-            
+        updateState(this.state.aktiveFilter, this.state.searchItem);
     }
 
     render() {
@@ -260,19 +259,36 @@ export default class KalenderContent extends React.Component{
                         }
                         pruefungenInfos1[0] = "test";
                         if(!filteredOut&&containsSearch) {
-                            if (typeof(pruefungenInfos1[(pruefungDatum[1]-1)*31 + pruefungDatum[2]]) === "undefined") {
-                                pruefungenInfos1[(pruefungDatum[1]-1)*31 + pruefungDatum[2]] = [];
+                            let tag = (pruefungDatum[1]-1)*31 + pruefungDatum[2];
+                            if (typeof(pruefungenInfos1[tag]) === "undefined") {
+                                pruefungenInfos1[tag] = [];
                             }
-                            if (!pruefungenInfos1[(pruefungDatum[1]-1)*31 + pruefungDatum[2]].includes([parseInt(pruefungDatum[0]), pruefungenValues[3]])){
-                                pruefungenInfos1[(pruefungDatum[1]-1)*31 + pruefungDatum[2]].push([parseInt(pruefungDatum[0]), pruefungenValues[3]]);
+                            let pruefungenInstance = [];
+                            for (let j = 1; j<pruefungenValues.length; j++){
+                                pruefungenInstance.push(<td>{pruefungenValues[j]}</td>);
                             }
-                            //console.log((pruefungDatum[1]-1)*31 + pruefungDatum[2]);
+                            console.log(pruefungenInstance);
+                            let included = false;
+                            let includedAt = -1;
+                            for(let k = 0; k<pruefungenInfos1[tag].length; k++){
+                                if(pruefungenInfos1[tag][k][1] === pruefungenValues[3]) {
+                                    included = true;
+                                    includedAt = k;
+                                }
+                            }
+
+                            if (!included){
+                                pruefungenInfos1[tag].push([parseInt(pruefungDatum[0]), pruefungenValues[3], [<tr><td id = "categorycontent">{pruefungenInstance}</td></tr>]]);
+                            }
+                            else {
+                                pruefungenInfos1[tag][includedAt][2].push(<tr><td id = "categorycontent">{pruefungenInstance}</td></tr>);
+                            }
+                            console.log(pruefungenInfos1[tag]);
                         }
                     }   
                 }
             }  
-            pruefungenInfos1[0] = "test";
-            pruefungenInfos1[1] = [2022, "yay"];
+            
             //console.log(pruefungenInfos1[0]);
             this.state.pruefungenInfos = pruefungenInfos1;
         }
@@ -337,7 +353,7 @@ export default class KalenderContent extends React.Component{
             {this.state.showPopup ? 
             <KalenderPopup
                 categories={pruefungenHeader}
-                name={this.state.infoName}
+                infos={this.state.infos}
                 closePopup={this.togglePopup.bind(this)}
             />
             : null
