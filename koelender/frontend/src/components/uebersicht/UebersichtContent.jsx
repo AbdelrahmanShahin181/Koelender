@@ -14,35 +14,6 @@ function SpaltenScript() {
     columns_btn.childNodes[1].data = "";
 }
 
-export function hideShowTable(col_name)
-{
-    //console.log(col_name);
-    var checkbox_val=document.getElementById(col_name).className;
-    //console.log(checkbox_val);
-    if(checkbox_val==="show")
-    {
-        let all_col=document.getElementsByClassName(col_name);
-        for(let i=0;i<all_col.length;i++)
-        {
-            all_col[i].style.display="none";
-        }
-        document.getElementById(col_name+"_head").style.display="none";
-        document.getElementById(col_name).setAttribute("class", "hide");
-    }
-
-    else
-    {
-        let all_col=document.getElementsByClassName(col_name);
-        for(let i=0;i<all_col.length;i++)
-        {
-            all_col[i].style.display="table-cell";
-        }
-        document.getElementById(col_name+"_head").style.display="table-cell";
-        document.getElementById(col_name).setAttribute("class", "show");
-    }
-}
-
-
 export default class KalenderContent extends React.Component{
 
     constructor() {
@@ -52,6 +23,7 @@ export default class KalenderContent extends React.Component{
             isLoaded:true,
             pruefungen: [],
             aktiveFilter: [],
+            hiddenColumns: [true,true,null,null,null,null,true,true,true,true,null],
             searchItem: ''
         };
         updateState = updateState.bind(this);
@@ -81,7 +53,6 @@ export default class KalenderContent extends React.Component{
                 });
             }
         );
-        //hideShowTable();
     }
     
 
@@ -89,15 +60,13 @@ export default class KalenderContent extends React.Component{
 
     render() {
 
-        const { error, isLoaded, pruefungen} = this.state;
+        const { error, isLoaded, pruefungen, hiddenColumns} = this.state;
         
         if(error) {return <div>Error: {error.message}</div>}
         else if(!isLoaded) {return <div>Loading...</div>}
 
         else {
 
-            
-            
             var pruefungenListe = [];
             var pruefungenHeader = [];
             var spaltenFilter = [];
@@ -107,20 +76,38 @@ export default class KalenderContent extends React.Component{
                 let x = 0;
 
                 for(let i = 1; i<pruefungenKeys.length; i++){
-                    pruefungenHeader.push(
-                    <td style = {{textTransform: "capitalize"}} 
-                        id = {pruefungenKeys[i]+'_col_head'}>
-                            <b>{pruefungenKeys[i]}</b>
-                    </td>);
+                    if (!hiddenColumns[i]){
+                        pruefungenHeader.push(
+                        <td style = {{textTransform: "capitalize"}} 
+                            id = {pruefungenKeys[i]+'_col_head'}>
+                                <b>{pruefungenKeys[i]}</b>
+                        </td>);
+                    }
                     spaltenFilter.push(
                     <li>
                         <input type="checkbox" 
                             className="show" 
                             id={pruefungenKeys[i]+"_col"} 
-                            onChange={()=>hideShowTable(pruefungenKeys[i]+"_col")} 
-                            defaultChecked='true'/>
+                            onChange={()=> {
+                                var col_name = pruefungenKeys[i]+"_col";
+                                var checkbox_val=document.getElementById(col_name).className;
+                                if(!hiddenColumns[i] )
+                                {   
+                                    hiddenColumns[i] = true;
+                                    this.setState({hiddenColumns});
+                                }
+
+                                else
+                                {
+                                    hiddenColumns[i] = null;
+                                    this.setState({hiddenColumns});
+                                }
+                            }
+                            } 
+                            defaultChecked={!hiddenColumns[i]}/>
                         <label style = {{textTransform: "capitalize"}}>{pruefungenKeys[i]}</label>
                     </li>);
+                    
                 
                 }
 
@@ -132,21 +119,18 @@ export default class KalenderContent extends React.Component{
             
                     for(let j = 1; j<pruefungenValues.length; j++){
                         
-                        pruefungenInstance.push(<td className = {pruefungenKeys[j]+'_col'}>{pruefungenValues[j]}</td>);
+                        if(!hiddenColumns[j]) {
+                            pruefungenInstance.push(<td className = {pruefungenKeys[j]+'_col'}>{pruefungenValues[j]}</td>);
+                        }
                         
                         if(this.state.aktiveFilter[j]!==undefined&&this.state.aktiveFilter[j]!=pruefungenValues[j]){
                             filteredOut = true;
-                            //console.log(this.state.aktiveFilter[j]);
-                            //console.log(pruefungenValues[j]);
                         }
                         if(pruefungenValues[j]==null){
                             pruefungenValues[j]="Abdo"
                         }
                         if(pruefungenValues[j].toString().toLowerCase().match(this.state.searchItem.toLocaleLowerCase())){
                             containsSearch = true;
-                            /*console.log(containsSearch);
-                            console.log(this.state.searchItem)
-                            console.log(pruefungenValues[j].toString())*/
                         }
                     }
                     
@@ -159,6 +143,8 @@ export default class KalenderContent extends React.Component{
                         x++;
                     }
                 }
+
+                console.log(typeof(pruefungenListe));
                 
             }  
             

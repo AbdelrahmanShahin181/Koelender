@@ -11,7 +11,14 @@ import React from 'react';
 import {renderCalendar} from '../../js/kalender';
 
 export function updateState(aktiveFilter, searchItem){
-    this.setState({aktiveFilter, searchItem})
+    this.setState({aktiveFilter, searchItem});
+    var calendar = this.renderCalendar(this.state.pruefungenInfos, this.state.date)[0]
+    this.setState({calendar});
+    this.setState({aktiveFilter, searchItem});
+    var calendar = this.renderCalendar(this.state.pruefungenInfos, this.state.date)[0]
+    this.setState({calendar});
+    //this.renderCalendar(this.state.pruefungenInfos, this.state.date);
+    
 }
 
 export default class Kalender extends React.Component {
