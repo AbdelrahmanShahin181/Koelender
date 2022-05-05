@@ -111,7 +111,7 @@
 }
 
 #top_login li input{
-    border-color: var(--medium_color);
+    border-color: var(--top_input_rim_color);
     width: 125px;
 }
 

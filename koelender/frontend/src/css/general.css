@@ -1,28 +1,10 @@
 /*general-----------------------------------------------------------------------------*/
 
-:root{
-    --light_color: #DAF2F2;
-    --medium_color: #8ACECE;
-    --dark_color: #007F7F;
-    --writing_light_color: #DAF2F2;
-    --writing_medium_color: #8ACECE;
-    --writing_dark_color: #007F7F;
-
-    --light_color: #DAF2F2;
-    --light_medium_color: #B0CFF7;
-    --medium_color: #4D8CDE;
-    --dark_color: #0C0B61;
-    --writing_light_color: #DAF2F2;
-    --writing_medium_color: #4D8CDE;
-    --writing_dark_color: #0C0B61;
-
-    /*--light_color: #FFFFFF;
-    --medium_color: #C0C0C0;
-    --dark_color: #E2001A;
-    --writing_light_color: #FFFFFF;
-    --writing_medium_color: #F0F0F0;
-    --writing_dark_color: #E2001A;*/
-
+#colorChange {
+    position:absolute;
+    bottom: 0px;
+    right: 0px;
+    z-index: 200;
 }
 
 body {
@@ -75,6 +57,10 @@ a:visited{
     border-bottom-style: solid;
     transition: 0.5s;
 }*/
+
+h3 {
+    color: var(--writing_header_color);
+}
 
 #top_myLinks li a {
     display: inline-block;
@@ -129,7 +115,8 @@ a:visited{
 
 button:hover{
     /*text-decoration: underline;*/
-    background-color: var(--light_color);
+    background-color: var(--button_hover_color);
+    color: var(--writing_button_hover_color);
 }
 
 input, select, button{
@@ -142,14 +129,16 @@ input, select, button{
     border-color: var(--dark_color);
     border-radius: 8px;
     color: var(--writing_dark_color);
+    transition: 0.5s;
 }
 
 button{
     width: 100px;
-    background-color: var(--medium_color);
-    border-color: var(--light_color);
+    background-color: var(--button_fill_color);
+    border-color: var(--button_rim_color);
     color: var(--writing_dark_color);
     cursor: pointer;
+    
 }
 
 ::placeholder {
@@ -184,7 +173,7 @@ table, th, td {
     top:0;
     bottom:0;
     margin-top:100px;
-    background-color: var(--medium_color);
+    background-color: var(--sidemenu_color);
     transition: 0.5s; 
     overflow-y: auto;
     overflow-x: hidden;
@@ -192,7 +181,7 @@ table, th, td {
 }
 
 .sidenav.is-active{
-    box-shadow: 0px 0px 15px var(--dark_color);
+    box-shadow: 0px 0px 15px var(--shadow_color);
 }
 
 @media (max-width: 400px) {

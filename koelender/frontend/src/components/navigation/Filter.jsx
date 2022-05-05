@@ -52,7 +52,6 @@ export default class Filter extends React.Component {
 
             var pruefungenHeader = [];
             var pruefungenOptionen = [];
-            //var aktiveFilter = [];
 
             if(pruefungen[0]){
                 var pruefungenKeys = Object.keys(pruefungen[0]);
@@ -64,10 +63,10 @@ export default class Filter extends React.Component {
 
                 for(let i = 0; i<pruefungen.length; i++) {
                     let pruefungenValues = Object.values(pruefungen[i]);
-                    //console.log(pruefungenValues);
                     for(let j = 1; j<pruefungenValues.length; j++){
-                        //console.log(pruefungenOptionen[j].includes(pruefungenValues[j]));
-                        //if(!pruefungenOptionen[j].includes(pruefungenValues[j])) {
+                        if (pruefungenValues[j] === null) {
+                            pruefungenValues[j] = "";
+                        }
                         if((!pruefungenOptionen[j].some(x => x.trim().toLowerCase() == pruefungenValues[j].trim().toLowerCase()))
                             /*&& (!pruefungenOptionen[j].toString().trim() == "")
                             && (!pruefungenOptionen[j] == null)*/) {
@@ -77,10 +76,8 @@ export default class Filter extends React.Component {
                         }
                     }
                 }
-                //console.log(pruefungenOptionen);
-                //console.log(pruefungenOptionen.length);
+
                 for(let i = 1; i<pruefungenOptionen.length; i++) {
-                    //console.log(pruefungenOptionen[i]);
                     pruefungenOptionen[i].sort();
                     for(let j = 0; j<pruefungenOptionen[i].length; j++){
                         pruefungenOptionen[i][j] = <option>{pruefungenOptionen[i][j]}</option>;
@@ -98,11 +95,7 @@ export default class Filter extends React.Component {
                                 aktiveFilter[i] = e.target.value;
                                 if (e.target.value.match(/\.\.\./)) {
                                     delete aktiveFilter[i];
-                                    //this.prop("selectedIndex", 0);
-                                    //console.log(this);
                                 }
-                                //console.log(aktiveFilter);
-                                //this.props.updateFilterParent(aktiveFilter);
                                 
                             }
                             }>
@@ -133,7 +126,7 @@ export default class Filter extends React.Component {
                                 type="button"
                                 onClick={
                                     ()=>{var searchItem = document.querySelector('#search').value;
-                                        this.props.updateFilterParent(aktiveFilter, searchItem);
+                                        this.props.updateFilterParent(this.state.aktiveFilter, searchItem);
                                         //console.log(document.querySelector('#search').value);
                                         //console.log(aktiveFilter);
                                     }

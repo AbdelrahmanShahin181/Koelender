@@ -36,6 +36,7 @@
     font-size: small;
     margin-top:5px;
     margin-bottom: 0;
+    cursor:default;
 }
 
 #calendar_table, #calendar_table th, #calendar_table td{
@@ -82,8 +83,8 @@
     color: var(--writing_light_color);
 }
 
-#content, #other_month {
-    
+#content {
+    z-index:25;
     text-align: left;
     height: 50px;
     padding-right: 5px;
@@ -95,27 +96,45 @@
     border-top-width: 0px;
     border-bottom-left-radius: 15px;
     border-bottom-right-radius: 15px;
+    font-size: 12px;
+}
+
+#content div {
+    z-index: 24;
+    background-color: var(--calendar_appointment_color);
+    color: var(--calendar_appointment_writing_color);
+    margin-bottom: 2px;
+    padding: 2px;
+    cursor: pointer;
+}
+
+#content div:hover {
+    background-color: var(--calendar_appointment_hover_color);
+    color: var(--calendar_appointment_writing_hover_color);
 }
 
 .day:hover #date {
-    background-color: var(--medium_color);
-    color: var(--writing_dark_color);
+    background-color: var(--calendar_rim_hover_color);
+    color: var(--calendar_writing_hover_color);
 }
 
 .day:hover #content {
-    border-color: var(--medium_color);
+    border-color: var(--calendar_rim_hover_color);
+    background-color: var(--calendar_content_hover_color);
     border-left-width: 4px;
     border-right-width: 4px;
     border-bottom-width: 4px;
     height: 48px;
+    overflow-y: auto;
 }
 
 #today #content{
-    background-color: var(--medium_color);
+    background-color: var(--calendar_today_color);
 }
 
 #today:hover #content{
-    background-color: var(--light_medium_color);
+    background-color: var(--calendar_today_hover_color);
+    
 }
 
 #other_month{
@@ -138,7 +157,83 @@
     overflow-wrap: anywhere;
 }
 
+.popup_outer {
+    z-index: 105;
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+    background-color: rgba(0,0,0, 0.3);
+}
+
+.popup_inner {
+    position: absolute;
+    left: 5%;
+    right: 5%;
+    top: 10%;
+    bottom: 10%;
+    margin: auto;
+    padding:25px;
+    border-radius: 12px;
+    background: var(--light_color);
+    max-width: 480px;
+    overflow:hide;
+}
+
+#popup_tableframe {
+    max-height: calc(100% - 50px);
+    overflow: auto;
+}
+
+.popup_inner button {
+    padding: 0 0 0 0;
+    position:relative;
+    float: right;
+    top: -23px;
+    right: -23px;
+    width: 25px;
+    height: 25px;
+    border-color: var(--dark_color);
+}
+
+#popup_table {
+	display: table;
+    min-width: 0px;
+    border-bottom: 0px;
+}
+#popup_table tr {
+    width: 200px;
+	display: table-cell;
+    border-width: 2px;
+    border-style: solid;
+    border-color: var(--light_medium_color);
+    border-radius: 2px;
+}
+#popup_table tr td {
+    width: 200px;
+	display: block;
+    border-bottom: 0px;
+}
+
+#popup_table #categories {
+    width: 200px;
+	font-weight: bold;
+    border: 0px;
+    padding: 0px;
+}
+#popup_table #categorycontent {
+    width: 200px;
+    border: 0px;
+    padding: 0px;
+}
+
 @media(max-width: 480px) {
+
+    
     #month {
         padding-left: 5px;
         padding-right: 5px;
