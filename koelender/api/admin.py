@@ -33,9 +33,9 @@ class PruefungResource(resources.ModelResource):
 
 class PruefungAdmin(ImportExportModelAdmin):
     resource_class= PruefungResource
-    list_display=('name', 'pruefer', 'datum','abschluss','pruefungsOrdnung','startzeit')
-    list_filter= ['semester', 'studiengang', 'abschluss', 'pruefungsOrdnung']
-    search_fields = ['name','pruefer']
+    list_display=('name', 'pruefer', 'datum','startzeit','dauer','pruefungsOrdnung')
+    list_filter= ['fachbereich','semester', 'studiengang', 'abschluss','pruefungsOrdnung']
+    search_fields = ['name','pruefer','pruefungsOrdnung']
 
 admin.site.register(Pruefung, PruefungAdmin)
 
