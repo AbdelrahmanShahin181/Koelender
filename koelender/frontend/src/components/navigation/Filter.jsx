@@ -56,10 +56,11 @@ export default class Filter extends React.Component {
                 for(let i = 0; i<pruefungen.length; i++) {
                     let pruefungenValues = Object.values(pruefungen[i]);
                     for(let j = 1; j<pruefungenValues.length; j++){
-                        if (pruefungenValues[j] === null) {
+                        if (typeof(pruefungenValues[j]) === "undefined") {
                             pruefungenValues[j] = "";
+                            //console.log("Hallo1")
                         }
-                        if((!pruefungenOptionen[j].some(x => x.trim().toLowerCase() == pruefungenValues[j].trim().toLowerCase()))) {
+                        else if((!pruefungenOptionen[j].some(x => x.trim().toLowerCase() == pruefungenValues[j].trim().toLowerCase()))) {
                             pruefungenOptionen[j].push(
                                 pruefungenValues[j].trim()
                             );
