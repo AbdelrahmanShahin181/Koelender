@@ -5,4 +5,17 @@ from .models import Pruefung
 class PruefungSerializer(serializers.ModelSerializer):
     class Meta:
         model= Pruefung
-        fields= ('id','pnr','semester','name','pruefer','datum','pruefungsform', 'dauer', 'teilnehmerzahl', 'pruefungsOrdnung', 'fachbereich', 'studiengang')
+        fields= ('id', 
+        'pnr', 
+        'name', 
+        'datum', 
+        'dauer', 
+        'startzeit', 
+        'pruefungsform', 
+        'pruefer', 
+        'fachbereich', 
+        'studiengang', 
+        'semester', 
+        'abschluss', 
+        'pruefungsOrdnung', 
+        'teilnehmerzahl')

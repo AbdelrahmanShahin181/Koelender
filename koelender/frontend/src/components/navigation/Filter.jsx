@@ -1,4 +1,6 @@
 import React from 'react';
+import fetchPruefungen from '../../js/fetch.js'
+import { updateState } from '../landing/Structure.jsx';
 
 export default class Filter extends React.Component {
 
@@ -9,37 +11,28 @@ export default class Filter extends React.Component {
             isLoaded:true,
             pruefungen: [],
             aktiveFilter: [],
+            searchItem: ""
         };
     }
 
-    
-
     componentDidMount() {
-        fetch("http://localhost:8000/api/liste/",{
-            method:'GET',
-            headers: {
-                'Content-Type': 'application/json'
+        fetchPruefungen(this);
+        if(JSON.parse(window.localStorage.getItem('filter'))) {
+            var searchItem = window.localStorage.getItem('searchItem');
+            if (searchItem === null){
+                searchItem = "";
             }
-        })
-        .then(response => response.json())
-        
-        .then(
-            (result) => {
-                this.setState({
-                    isLoaded: true,
-                    pruefungen: result,
-                });
-            },
-            (error) => {
-                this.setState({
-                    isLoaded: true,
-                    error
-                });
+            var filter = JSON.parse(window.localStorage.getItem('filter'));
+            for(let i = 0; i< filter.length; i++) {
+                if (filter[i] === null) {
+                    delete filter[i]
+                }
             }
-        )
+            this.state.searchItem = searchItem;
+            this.state.aktiveFilter = filter;
+            this.props.updateFilterParent(filter, searchItem);
+        }
     }
-
-    
 
     render() {
 
@@ -58,7 +51,6 @@ export default class Filter extends React.Component {
 
                 for(let i = 1; i<pruefungenKeys.length; i++){
                     pruefungenOptionen[i] = new Array();
-                    //pruefungenOptionen[i].push(<option>Kein Filter</option>)
                 }
 
                 for(let i = 0; i<pruefungen.length; i++) {
@@ -67,9 +59,7 @@ export default class Filter extends React.Component {
                         if (pruefungenValues[j] === null) {
                             pruefungenValues[j] = "";
                         }
-                        if((!pruefungenOptionen[j].some(x => x.trim().toLowerCase() == pruefungenValues[j].trim().toLowerCase()))
-                            /*&& (!pruefungenOptionen[j].toString().trim() == "")
-                            && (!pruefungenOptionen[j] == null)*/) {
+                        if((!pruefungenOptionen[j].some(x => x.trim().toLowerCase() == pruefungenValues[j].trim().toLowerCase()))) {
                             pruefungenOptionen[j].push(
                                 pruefungenValues[j].trim()
                             );
@@ -80,7 +70,12 @@ export default class Filter extends React.Component {
                 for(let i = 1; i<pruefungenOptionen.length; i++) {
                     pruefungenOptionen[i].sort();
                     for(let j = 0; j<pruefungenOptionen[i].length; j++){
-                        pruefungenOptionen[i][j] = <option>{pruefungenOptionen[i][j]}</option>;
+                        if (pruefungenOptionen[i][j] === this.state.aktiveFilter[i]) {
+                            pruefungenOptionen[i][j] = <option selected>{pruefungenOptionen[i][j]}</option>;
+                        }
+                        else {
+                            pruefungenOptionen[i][j] = <option>{pruefungenOptionen[i][j]}</option>;
+                        }
                     }
                     
                 }
@@ -99,7 +94,7 @@ export default class Filter extends React.Component {
                                 
                             }
                             }>
-                                <option style = {{textTransform: "capitalize"}} selected>{pruefungenKeys[i]}...</option>
+                                <option style = {{textTransform: "capitalize"}} /*selected*/>{pruefungenKeys[i]}...</option>
                                 {pruefungenOptionen[i]}
                         </select>
                     </li>);
@@ -112,9 +107,22 @@ export default class Filter extends React.Component {
                 <div id="sidebar" className="sidenav">
                 <button className="filter_btn" onClick={()=>FilterScript()}>Filter {'\u003E'}</button>
                     <ul id="sidemenu">
-                        <li><input id="search" type="text" name="search" placeholder="Suche..."/></li>
+                        <li><input id="search" type="text" name="search" placeholder="Suche..." defaultValue={this.state.searchItem}>
+                            </input></li>
                         <li>
                             <h3 id="filterHeader">Filter</h3>
+                        </li>
+
+                        <li>
+                            <button
+                            onClick= {
+                                ()=> {
+                                for(let i = 1; i< pruefungenKeys.length; i++) {
+                                    var dropdown = document.getElementById(pruefungenKeys[i]+'_select');
+                                    dropdown.selectedIndex = 0;
+                                    aktiveFilter[i] = null;
+                                }}
+                            }>Filter löschen</button>
                         </li>
                         
                         {pruefungenHeader}
@@ -126,9 +134,12 @@ export default class Filter extends React.Component {
                                 type="button"
                                 onClick={
                                     ()=>{var searchItem = document.querySelector('#search').value;
+                                        window.localStorage.removeItem('searchItem');
+                                        window.localStorage.setItem('searchItem', searchItem)
+                                        window.localStorage.removeItem('filter');
+                                        window.localStorage.setItem('filter', JSON.stringify(this.state.aktiveFilter));
                                         this.props.updateFilterParent(this.state.aktiveFilter, searchItem);
-                                        //console.log(document.querySelector('#search').value);
-                                        //console.log(aktiveFilter);
+                                        //console.log(this.state.aktiveFilter);
                                     }
                                     
                                 }>Filtern</button>

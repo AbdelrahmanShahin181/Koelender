@@ -1,0 +1,49 @@
+:root{
+
+    /*general_palette----------------------------------------------------------------------*/
+    --background_color: var(--light_color);
+    --topbar_color: var(--medium_dark_color);
+    --shadow_color: var(--dark_color);
+    --sidemenu_color: var(--medium_color);
+    --table_border_color: var(--light_medium_color);
+    --hamburger_color: var(--light_color);
+    --second_row_color: var(--light_medium_color);
+
+    /*logo_palette----------------------------------------------------------------------*/
+    --top_logo_color: var(--light_color);
+    --top_logo_letter_color: var(--dark_color);   
+    --top_logo_glow_color: var(--light_color);    
+    --logo_color: var(--medium_color);
+    --logo_letter_color: var(--light_color);
+    --logo_glow_color: var(--medium_color);  
+
+    /*writing_palette----------------------------------------------------------------------*/
+    --writing_light_color: var(--light_color);
+    --writing_medium_color: var(--medium_color);
+    --writing_medium_dark_color: var(--medium_color);
+    --writing_dark_color: var(--dark_color);
+    --writing_header_color: var(--dark_color);
+    
+    /*input_palette----------------------------------------------------------------------*/
+    --button_fill_color: var(--medium_color);
+    --button_hover_color: var(--light_color);
+    --button_rim_color: var(--light_color);
+    --writing_button_hover_color: var(--dark_color);
+    --page_button_border_color: var(--dark_color);
+    --button_color: var(--light_color);
+    --top_input_rim_color: var(--medium_color);
+
+    /*calendar_palette----------------------------------------------------------------------*/
+    --calendar_rim_hover_color: var(--medium_color);
+    --calendar_content_hover_color: var(--light_color);
+    --calendar_writing_hover_color: var(--dark_color);
+    --calendar_today_color: var(--medium_color);
+    --calendar_today_hover_color: var(--light_medium_color);
+    --calendar_appointment_color: var(--light_medium_color);
+    --calendar_appointment_hover_color: var(--medium_color);
+    --calendar_appointment_writing_color: var(--dark_color);
+    --calendar_appointment_writing_hover_color: var(--dark_color);
+    --calendar_date_border_color: var(--dark_color);
+    --calendar_date_background_color: var(--light_color);
+
+}

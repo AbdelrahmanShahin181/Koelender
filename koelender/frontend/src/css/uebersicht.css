@@ -42,11 +42,11 @@
 .hide_columns{
     position:fixed;
     z-index: 12;
-    top: 125px;
+    top: 133px;
     left:0px;
     width: 75px;
     height: 25px;
-    border-color: var(--dark_color);
+    border-color: var(--page_button_border_color);
     transition: 0.5s;
     padding: 0 0 0 0;
     white-space: nowrap;
@@ -117,26 +117,6 @@ th {
     text-align: left;
 }
 
-.add:after {
-    transform: rotate(90deg) translate(-1.5px, 0px) ;
-}
-
-.add.is-active:after {
-    transform: rotate(180deg) translate(0px, 1px) ;
-}
-
-.add .bar {
-    transform: translate(0px, 1.5px) ;
-}
-
-/*#table_start {
-    padding-left: 40px;
-}*/
-
-.table_end {
-    text-align: center;
-}
-
 #klausurplan{
     width: 100%;
 }
@@ -166,7 +146,12 @@ th {
 }
 
 .second {
-    background-color: var(--light_medium_color);
+    background-color: var(--second_row_color);
+}
+
+#export_btn {
+    position: fixed;
+    left: calc(100% - 125px);
 }
 
 

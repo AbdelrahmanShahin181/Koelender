@@ -1,0 +1,49 @@
+:root{
+
+    /*general_palette----------------------------------------------------------------------*/
+    --background_color: var(--dark_color_dark_mode);
+    --topbar_color: var(--medium_dark_color_dark_mode);
+    --shadow_color: var(--light_medium_color_dark_mode);
+    --sidemenu_color: var(--medium_color_dark_mode);
+    --table_border_color: var(--medium_dark_color_dark_mode);
+    --hamburger_color: var(--light_medium_color_dark_mode);
+    --second_row_color: var(--medium_dark_color_dark_mode);
+
+    /*logo_palette----------------------------------------------------------------------*/
+    --top_logo_color: var(--light_medium_color_dark_mode);
+    --top_logo_letter_color: var(--light_color_dark_mode);   
+    --top_logo_glow_color: var(--light_medium_color_dark_mode);    
+    --logo_color: var(--medium_color_dark_mode);
+    --logo_letter_color: var(--light_color_dark_mode);
+    --logo_glow_color: var(--light_medium_color_dark_mode);  
+
+    /*writing_palette----------------------------------------------------------------------*/
+    --writing_light_color: var(--light_color_dark_mode);
+    --writing_medium_color: var(--medium_color_dark_mode);
+    --writing_medium_dark_color: var(--medium_color_dark_mode);
+    --writing_dark_color: var(--light_medium_color_dark_mode);
+    --writing_header_color: var(--light_medium_color_dark_mode);
+    
+    /*input_palette----------------------------------------------------------------------*/
+    --button_fill_color: var(--medium_color_dark_mode);
+    --button_hover_color: var(--dark_color_dark_mode);
+    --button_rim_color: var(--light_medium_color_dark_mode);
+    --writing_button_hover_color: var(--light_medium_color_dark_mode);
+    --page_button_border_color: var(--light_medium_color_dark_mode);
+    --button_color: var(--medium_dark_color_dark_mode);
+    --top_input_rim_color: var(--light_medium_color_dark_mode);
+
+    /*calendar_palette----------------------------------------------------------------------*/
+    --calendar_rim_hover_color: var(--medium_color_dark_mode);
+    --calendar_content_hover_color: var(--dark_color_dark_mode);
+    --calendar_writing_hover_color: var(--light_medium_color_dark_mode);
+    --calendar_today_color: var(--medium_color_dark_mode);
+    --calendar_today_hover_color: var(--medium_dark_color_dark_mode);
+    --calendar_appointment_color: var(--medium_dark_color_dark_mode);
+    --calendar_appointment_hover_color: var(--medium_color_dark_mode);
+    --calendar_appointment_writing_color: var(--light_medium_color_dark_mode);
+    --calendar_appointment_writing_hover_color: var(--light_medium_color_dark_mode);
+    --calendar_date_border_color: var(--medium_dark_color_dark_mode);
+    --calendar_date_background_color: var(--dark_color_dark_mode);
+
+}

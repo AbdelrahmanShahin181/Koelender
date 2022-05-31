@@ -1,14 +1,12 @@
 
 import React from 'react';
 import { updateState } from '../landing/Structure';
+import {renderCalendar, prevMonth, nextMonth} from './KalenderDays'
 import KalenderPopup from './KalenderPopup';
 import '../../css/kalender.css';
-
-
-
+import fetchPruefungen from '../../js/fetch';
 
 export default class KalenderContent extends React.Component{
-
 
     constructor() {
         super();
@@ -21,148 +19,19 @@ export default class KalenderContent extends React.Component{
             searchItem: '',
             pruefungenInfos: [],
             calendar: [],
-            date: "",
+            date: new Date(),
             infos:[]
         };
         updateState = updateState.bind(this);
-        //updateState = () => {updateState(); renderCalendar(this.state.pruefungenInfos, this.state.date)}
     }
 
-
-
-
-
-
-
-
-    renderCalendar(infos, date) {
-
-        //console.log("function renderCalendar started");
-        //console.log(typeof(infos));
-        //console.log(infos[1]);
-    
-        const month = date.getMonth();
-        const lastDay = new Date(date.getFullYear(), date.getMonth()+1,0).getDate();
-    
-        date.setDate(1);
-        const firstDayIndex = date.getDay();
-        const lastMonthDays = new Date(date.getFullYear(), date.getMonth(),0).getDate();
-    
-        const months = [
-            "Januar",
-            "Februar",
-            "März",
-            "April",
-            "Mai",
-            "Juni",
-            "Juli",
-            "August",
-            "September",
-            "Oktober",
-            "November",
-            "Dezember"
-        ];
-    
-        document.querySelector("#cur_month").innerHTML 
-        = months[month];
-    
-        document.querySelector("#cur_year").innerHTML 
-        = "<p>" + date.getFullYear() + "</p>";
-    
-        let days = [];
-    
-        let i = 1;
-        let week = [];
-        let event = [];
-    
-    
-        for(let x=firstDayIndex-1; x!==0; x--) {
-            
-            if (x===-1) {
-                x=6;
-            }
-            week.push( <td id="other_month" class="day">
-                    <div id="date">{lastMonthDays-x+1}</div>
-                    <div id="content" class = {"y" + date.getFullYear() + "d" + lastMonthDays-x+1 + "m" + date.getMonth()-1}>  </div>
-                </td>);
-            i++;
-        }
-    
-        
-    
-        for(let y=1; y<=lastDay;y++) {
-            
-            
-            if (i%7 === 1) {
-                days.push(<tr>{week}</tr>);
-                week = [];
-            }
-            if(typeof(infos[date.getMonth()*31+y]) !== "undefined") {
-                for(let j = 0; j<infos[date.getMonth()*31+y].length; j++)
-                if (infos[date.getMonth()*31+y][j][0] === date.getFullYear()) {
-                    
-                    event.push(<div onClick={()=>{this.togglePopup(infos[date.getMonth()*31+y][j])}} >{infos[date.getMonth()*31+y][j][1]}</div>);
-                    
-                }
-                else {
-                    event = [];
-                }
-            }
-            else {
-                event = [];
-            }
-            if(y===new Date().getDate() && date.getMonth()===new Date().getMonth() && date.getFullYear() === new Date().getFullYear()) {
-                
-                week.push( <td id="today" class="day">
-                        <div id="date">{y}</div>
-                        <div id="content" class = {"y" + date.getFullYear() + "d" + y + "m" + date.getMonth()}> {event} </div>
-                    </td>);
-            }
-            else {
-                week.push( <td class="day">
-                        <div id="date">{y}</div>
-                        <div id="content" class = {"y" + date.getFullYear() + "d" + y + "m" + date.getMonth()}> {event} </div>
-                    </td>);
-            }
-            event = [];
-            i++;
-        }
-        
-        for(let y=1; !(i%7 === 1);y++) {
-            
-            week.push( <td id="other_month" class="day">
-                    <div id="date">{y}</div>
-                    <div id="content" class = {"y" + date.getFullYear() + "d" + y + "m" + date.getMonth()+1}>  </div>
-                </td>);
-            i++;
-        }
-        days.push( <tr id = "oops">{week}</tr>);
-    
-        //console.log(typeof(days));
-        return([days, date]);
-        
-        //monthDays.innerHTML = days;
-    
+    setState(state) {
+        super.setState(state);
+        var calendar = renderCalendar(this.state.pruefungenInfos, this.state.date, this);
+        this.state.calendar = calendar[0];
+        this.state.date = calendar[1];
     }
     
-    prevMonth(infos, date){
-        //console.log(date.getMonth());
-        date.setMonth(date.getMonth()-1);
-        return this.renderCalendar(infos, date);
-    }
-    
-    nextMonth(infos, date){
-        date.setMonth(date.getMonth()+1);
-        return this.renderCalendar(infos, date);
-    }
-    
-
-
-
-
-
-    
-
     togglePopup(infos) {
         this.setState({
             infos: infos,
@@ -171,41 +40,13 @@ export default class KalenderContent extends React.Component{
     }
 
     componentDidMount() {
-        //console.log(typeof(this.state.pruefungenInfos));
-        //console.log(this.state.pruefungenInfos[0]);
-        if (this.state.date === "") { this.state.date = new Date();}
-        fetch("http://localhost:8000/api/liste/",{
-            method:'GET',
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        })
-        .then(response => response.json())
-        
-        .then(
-            (result) => {
-                this.setState({
-                    isLoaded: true,
-                    pruefungen: result,
-                    
-                    calendar: this.renderCalendar(this.state.pruefungenInfos, this.state.date)[0]
-                    
-                });
-            },
-            (error) => {
-                this.setState({
-                    isLoaded: true,
-                    error
-                });
-            }
-        );
-        updateState(this.state.aktiveFilter, this.state.searchItem);
+        fetchPruefungen(this);
     }
 
     render() {
 
 
-       const { error, isLoaded, pruefungen} = this.state;
+        const { error, isLoaded, pruefungen} = this.state;
         
         if(error) {return <div>Error: {error.message}</div>}
         else if(!isLoaded) {return <div>Loading...</div>}
@@ -215,6 +56,8 @@ export default class KalenderContent extends React.Component{
             var pruefungenHeader = [];
             var pruefungenInfos1 = [];
 
+            
+
             if(pruefungen[0]){
                 var pruefungenKeys = Object.keys(pruefungen[0]);
 
@@ -222,11 +65,10 @@ export default class KalenderContent extends React.Component{
                     
                         pruefungenHeader.push(
                         <td style = {{textTransform: "capitalize"}} 
-                            id = {pruefungenKeys[i]+'_col_head'}>
+                            id = {pruefungenKeys[i]+'_col_head'}
+                            className = "popup_cell">
                                 <b>{pruefungenKeys[i]}</b>
-                        </td>);
-                    
-                                    
+                        </td>);                  
                 }
 
                 for(let i = 0; i<pruefungen.length; i++) {
@@ -235,15 +77,10 @@ export default class KalenderContent extends React.Component{
                     let filteredOut = false;
                     let containsSearch = false
 
-                    
+                    if (typeof(pruefungen[i].datum)!=='undefined'&&
+                        !(pruefungen[i].datum == null)) {
 
-                    if (!(pruefungenValues[5] == null)) {
-
-                        let pruefungDatum = pruefungenValues[5].split('-');
-                        pruefungDatum[1] = parseInt(pruefungDatum[1]);
-                        if (typeof pruefungDatum[2] === 'string') {
-                            pruefungDatum[2] = parseInt(pruefungDatum[2].split(' ')[0]);
-                        }
+                        let pruefungDatum = new Date(pruefungen[i].datum);
                         
                         for(let j = 1; j<pruefungenValues.length; j++){
                                                 
@@ -257,44 +94,61 @@ export default class KalenderContent extends React.Component{
                                 containsSearch = true;
                             }
                         }
-                        pruefungenInfos1[0] = "test";
+                        
                         if(!filteredOut&&containsSearch) {
-                            let tag = (pruefungDatum[1]-1)*31 + pruefungDatum[2];
+                            let tag = (pruefungDatum.getMonth())*31 + pruefungDatum.getDate();
                             if (typeof(pruefungenInfos1[tag]) === "undefined") {
                                 pruefungenInfos1[tag] = [];
                             }
                             let pruefungenInstance = [];
-                            for (let j = 1; j<pruefungenValues.length; j++){
-                                pruefungenInstance.push(<td>{pruefungenValues[j]}</td>);
+                            for (let j = 1; j<pruefungenKeys.length; j++){
+                                //console.log(typeof(pruefungenValues[j]));
+                                if (pruefungenValues[j]==='') {
+                                    pruefungenInstance.push(<td className="popup_cell">NA</td>);
+                                }
+                                else {
+                                    pruefungenInstance.push(<td className="popup_cell">{pruefungenValues[j]}</td>);
+                                }
                             }
-                            console.log(pruefungenInstance);
+                      
                             let included = false;
                             let includedAt = -1;
                             for(let k = 0; k<pruefungenInfos1[tag].length; k++){
-                                if(pruefungenInfos1[tag][k][1] === pruefungenValues[3]) {
+                                if(pruefungenInfos1[tag][k][1] === pruefungen[i].name) {
                                     included = true;
                                     includedAt = k;
                                 }
                             }
 
                             if (!included){
-                                pruefungenInfos1[tag].push([parseInt(pruefungDatum[0]), pruefungenValues[3], [<tr><td id = "categorycontent">{pruefungenInstance}</td></tr>]]);
+                                pruefungenInfos1[tag].push([parseInt(pruefungDatum.getFullYear()), pruefungen[i].name, [<tr><td id = "categorycontent">{pruefungenInstance}</td></tr>]]);
+                                var calendar = renderCalendar(this.state.pruefungenInfos, this.state.date, this);
+                                this.state.calendar = calendar[0];
+                                this.state.date = calendar[1];
                             }
                             else {
                                 pruefungenInfos1[tag][includedAt][2].push(<tr><td id = "categorycontent">{pruefungenInstance}</td></tr>);
                             }
-                            console.log(pruefungenInfos1[tag]);
+                           
                         }
                     }   
                 }
             }  
             
-            //console.log(pruefungenInfos1[0]);
-            this.state.pruefungenInfos = pruefungenInfos1;
+            if(typeof(this.state.pruefungenInfos[0]) === 'undefined') {
+                this.state.pruefungenInfos = pruefungenInfos1;
+                this.state.pruefungenInfos[0] = true;
+            }
+            else if(this.state.pruefungenInfos[0]){
+                this.state.pruefungenInfos = pruefungenInfos1;
+                this.setState();
+                this.state.pruefungenInfos[0] = false;
+            }
+            else{
+                this.state.pruefungenInfos = pruefungenInfos1;
+            }
+            
         }
-
-        
-
     
         return(
             <>
@@ -302,9 +156,8 @@ export default class KalenderContent extends React.Component{
                 <tbody>
                     <tr>
                         <td className="prev" onClick={()=>{
-                            this.state.calendar = this.prevMonth(this.state.pruefungenInfos, this.state.date)[0]; 
+                            this.state.calendar = prevMonth(this.state.pruefungenInfos, this.state.date, this)[0]; 
                             updateState(this.state.aktiveFilter, this.state.searchItem);
-                            
                             }}>
                         {'\u276E'}
                         </td>
@@ -314,7 +167,7 @@ export default class KalenderContent extends React.Component{
                         </td>
                         
                         <td className="next" onClick={()=>{
-                            this.state.calendar = this.nextMonth(this.state.pruefungenInfos, this.state.date)[0]; 
+                            this.state.calendar = nextMonth(this.state.pruefungenInfos, this.state.date, this)[0]; 
                             updateState(this.state.aktiveFilter, this.state.searchItem);
                             }}>
                             {'\u276F'}

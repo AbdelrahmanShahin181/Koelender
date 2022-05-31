@@ -25,4 +25,5 @@ urlpatterns = [
     path('',TemplateView.as_view(template_name='index.html')),
     path('kalender/',TemplateView.as_view(template_name='index.html')),
     path('uebersicht/',TemplateView.as_view(template_name='index.html')),
+    path('styles/',TemplateView.as_view(template_name='index.html')),
 ]

@@ -11,21 +11,20 @@ import React from 'react';
 
 export function updateState(aktiveFilter, searchItem){
     this.setState({aktiveFilter, searchItem});
-    //console.log(typeof(renderCalendar));
-    //var calendar = this.renderCalendar(this.state.pruefungenInfos, this.state.date)[0]
-    //this.setState({calendar});
+    //console.log("stateSet");
 }
 
 export default class Structure extends React.Component {
     constructor(props) {
         super(props)
+        this.child = React.createRef();
         this.state = {
             aktiveFilter: [], 
             searchItem: '',
-            stylePath: process.env.PUBLIC_URL + '/static/css/color.css'
+            stylePath: process.env.PUBLIC_URL + '/static/css/color.css',
         }
-        this.updateFilter = this.updateFilter
-        
+        this.updateFilter = this.updateFilter;
+        //const childIcs = React.useRef(null);
     }
 
     updateFilter = (aktiveFilter, searchItem) => {
@@ -35,12 +34,12 @@ export default class Structure extends React.Component {
     }
     updateStateChild(aktiveFilter, searchItem) {updateState(aktiveFilter, searchItem)}
 
-    render() {
-        var filter = <></>;
-        if(this.props.filter) {
-            filter = <Filter updateFilterParent = {this.updateFilter}/>;
-        }
-        
+    exportIcs = () => {
+        console.log("export from Structure called");
+        //childIcs.current();
+    }
+
+    render() {        
 
         return (    
             
@@ -57,11 +56,16 @@ export default class Structure extends React.Component {
 
             </div>
             <div id="mobilebar" className="sidenav">
-                <Navigation type="mob"/>
+                <Navigation type="mob" exportIcsParent = {this.exportIcs}/>
             </div>
             
-            {filter}
-            <Content content = {this.props.content}/>
+            {this.props.filter ? 
+            <Filter updateFilterParent = {this.updateFilter}/>
+            : null
+            }
+
+            <Content /*childIcs = {childIcs}*/
+                content = {this.props.content}/>
             
             </>
         )

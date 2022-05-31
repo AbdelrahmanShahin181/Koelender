@@ -1,17 +1,22 @@
 /*general-----------------------------------------------------------------------------*/
 
-#colorChange {
-    position:absolute;
-    bottom: 0px;
-    right: 0px;
+#colorChange, #styleChange {
+    display: inline-block;
     z-index: 200;
+    list-style: none;
+}
+#colorChange li, #styleChange li {
+    margin: 10px;
+}
+#colorChange li button{
+    text-transform: capitalize;
 }
 
 body {
     height: 100%;
     width: 100%;
     margin: 0px 0px 0px 0px;
-    background-color: var(--light_color);
+    background-color: var(--background_color);
     font-family: sans-serif;
     color: var(--writing_dark_color);
     overflow:hidden;
@@ -34,7 +39,6 @@ body {
 /* Handle */
 ::-webkit-scrollbar-thumb {
     background: #888; 
-    
     border-radius: 5px;
 }
 
@@ -74,7 +78,7 @@ h3 {
     left: 0;
     width: 105%;
     height: 2px;
-    background-color: var(--light_color);
+    background-color: var(--writing_light_color);
     transition: opacity 300ms, transform 300ms;
     transform: scale(0);
     transform-origin: center;
@@ -99,7 +103,7 @@ h3 {
     right: 0;
     width: 85px;
     height: 2px;
-    background-color: var(--dark_color);
+    background-color: var(--writing_header_color);
     transition: opacity 300ms, transform 300ms;
     transform: scale(0);
     transform-origin: right;
@@ -122,11 +126,11 @@ button:hover{
 input, select, button{
     width: 150px;
     padding: 5px 5px 5px 5px;
-    background-color: var(--light_color);
+    background-color: var(--button_color);
     box-sizing: border-box;
     border-width: 2px;
     border-style: solid;
-    border-color: var(--dark_color);
+    border-color: var(--button_border_color);
     border-radius: 8px;
     color: var(--writing_dark_color);
     transition: 0.5s;
@@ -162,7 +166,7 @@ table {
 
 table, th, td {
     border-bottom: 2px solid black;
-    border-color: var(--light_medium_color);
+    border-color: var(--table_border_color);
     border-collapse: collapse;
 }
 

@@ -2,25 +2,44 @@ import React from 'react';
 import Structure from './landing/Structure';
 import KalenderContent from './kalender/KalenderContent';
 import UebersichtContent from './uebersicht/UebersichtContent';
+import StylesContent from './styles/StylesContent';
 import Logo from './Logo';
 import {BrowserRouter, Route, Routes} from 'react-router-dom';
 
 export default class Routing extends React.Component {
+
     constructor() {
         super();
+        //console.log(JSON.parse(window.localStorage.getItem('state')));
         this.state = JSON.parse(window.localStorage.getItem('state')) || {
-            stylePath: process.env.PUBLIC_URL + '/static/css/color.css'
+            colorPath: process.env.PUBLIC_URL + '/static/css/color_blue.css',
+            stylePath: process.env.PUBLIC_URL + '/static/css/style_light.css'
         }
+        window.localStorage.setItem('state', JSON.stringify(this.state));
     }
 
-    setState(state) {
-        window.localStorage.setItem('state', JSON.stringify(state));
-        super.setState(state);
+    setState(color, style) {
+        super.setState(color, style);
+    }
+
+    updateStyle = (style) => {
+        var old = JSON.parse(window.localStorage.getItem('state'));
+        old.stylePath = style.stylePath
+        window.localStorage.setItem('state', JSON.stringify(old));
+        this.setState(style); 
+    }
+
+    updateColor = (color) => {
+        var old = JSON.parse(window.localStorage.getItem('state'));
+        old.colorPath = color.colorPath
+        window.localStorage.setItem('state', JSON.stringify(old));
+        this.setState(color); 
     }
 
     render() {
         return(
             <>
+            <link rel="stylesheet" type="text/css" href={this.state.colorPath} />
             <link rel="stylesheet" type="text/css" href={this.state.stylePath} />
             <BrowserRouter>
                 <Routes>
@@ -42,16 +61,17 @@ export default class Routing extends React.Component {
                         filter = {true} 
                         content = {<UebersichtContent/>}/>
                     } exact/>
+                    <Route path = '/styles' element = {
+                        <Structure 
+                        filter = {false} 
+                        content = {<StylesContent 
+                            updateStyleParent = {this.updateStyle}
+                            updateColorParent = {this.updateColor}/>}/>
+                    } exact/>
                     
                 </Routes>
             </BrowserRouter>
-            <button id='colorChange' onClick={()=>{
-                var stylePath= process.env.PUBLIC_URL + '/static/css/color_BO.css';
-                if(this.state.stylePath === process.env.PUBLIC_URL + '/static/css/color_BO.css') {
-                    stylePath= process.env.PUBLIC_URL + '/static/css/color.css';
-                }
-                this.setState({stylePath});
-            }}>BO-Style</button>
+            
             </>
         )
     }

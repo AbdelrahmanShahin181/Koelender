@@ -1,6 +1,7 @@
 import React from 'react';
 import { updateState } from '../landing/Structure';
 import '../../css/uebersicht.css';
+import fetchPruefungen from '../../js/fetch';
 
 function SpaltenScript() {
     const columns_btn = document.querySelector('.hide_columns');
@@ -24,40 +25,54 @@ export default class KalenderContent extends React.Component{
             isLoaded:true,
             pruefungen: [],
             aktiveFilter: [],
-            hiddenColumns: [true,true,null,null,null,null,true,true,true,true,null],
-            searchItem: ''
+            hiddenColumns: [],
+            searchItem: '',
+            fileDownloadUrl: "",
         };
         updateState = updateState.bind(this);
+        /*React.useEffect(() => {
+            childIcs.current = icsExport(this.pruefungenExport)
+        },[])*/
+    }
+
+    sethiddenCol(cols) {
+        window.localStorage.setItem('hiddenCols', JSON.stringify(cols));
+        this.setState(cols);
     }
 
     componentDidMount() {
-        fetch("http://localhost:8000/api/liste/",{
-            method:'GET',
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        })
-        .then(response => response.json())
-        
-        .then(
-            (result) => {
-                this.setState({
-                    isLoaded: true,
-                    pruefungen: result,
-                    
-                });
-            },
-            (error) => {
-                this.setState({
-                    isLoaded: true,
-                    error
-                });
-            }
-        );
+        fetchPruefungen(this)
+        if(JSON.parse(window.localStorage.getItem('hiddenCols'))) {
+            var cols = JSON.parse(window.localStorage.getItem('hiddenCols'));
+            this.setState(cols);
+        }
     }
     
+    toIcsTime(date) {
+        return(
+        date.getFullYear().toString()+
+        ((date.getMonth() + 1)<10? "0":"") +
+        (date.getMonth()+1).toString()+
+        (date.getDate()<10? "0":"") +
+        date.getDate().toString()+
+        "T"+
+        (date.getHours()<10? "0":"") +
+        date.getHours().toString()+
+        (date.getMinutes()<10? "0":"") +
+        date.getMinutes().toString()+
+        "00")
+    }
 
-    
+    exportIcs = (event) => {
+        const blob = new Blob([event],{type: 'text/plain;charset=utf-8',})
+        const fileDownloadUrl = URL.createObjectURL(blob);
+        this.setState ({fileDownloadUrl: fileDownloadUrl}, 
+        () => {
+            this.dofileDownload.click(); 
+            URL.revokeObjectURL(fileDownloadUrl);  // free up storage--no longer needed.
+            this.setState({fileDownloadUrl: ""})
+        })   
+    }
 
     render() {
 
@@ -71,6 +86,8 @@ export default class KalenderContent extends React.Component{
             var pruefungenListe = [];
             var pruefungenHeader = [];
             var spaltenFilter = [];
+            var pruefungenExport = 
+                "BEGIN:VCALENDAR\nPRODID:koelender.de\nVERSION:2.0";
 
             if(pruefungen[0]){
                 var pruefungenKeys = Object.keys(pruefungen[0]);
@@ -95,13 +112,13 @@ export default class KalenderContent extends React.Component{
                                 if(!hiddenColumns[i] )
                                 {   
                                     hiddenColumns[i] = true;
-                                    this.setState({hiddenColumns});
+                                    this.sethiddenCol({hiddenColumns});
                                 }
 
                                 else
                                 {
                                     hiddenColumns[i] = null;
-                                    this.setState({hiddenColumns});
+                                    this.sethiddenCol({hiddenColumns});
                                 }
                             }
                             } 
@@ -124,7 +141,7 @@ export default class KalenderContent extends React.Component{
                             pruefungenInstance.push(<td className = {pruefungenKeys[j]+'_col'}>{pruefungenValues[j]}</td>);
                         }
                         
-                        if(this.state.aktiveFilter[j]!==undefined&&this.state.aktiveFilter[j]!=pruefungenValues[j]){
+                        if(this.state.aktiveFilter[j]!==undefined&&this.state.aktiveFilter[j]!==null&&this.state.aktiveFilter[j]!=pruefungenValues[j]){
                             filteredOut = true;
                         }
                         if(pruefungenValues[j]==null){
@@ -136,6 +153,31 @@ export default class KalenderContent extends React.Component{
                     }
                     
                     if(!filteredOut&&containsSearch) {
+                        
+                        var pruefungStart = new Date(pruefungen[i].datum+" "+pruefungen[i].startzeit);
+                        if(pruefungStart.getTime() === pruefungStart.getTime()){
+                        var pruefungEnd = new Date(pruefungen[i].datum+" "+pruefungen[i].startzeit);
+                        if(pruefungen[i].dauer.trim === ""){
+                            pruefungEnd.setMinutes(pruefungEnd.getMinutes()+parseInt(pruefungen[i].dauer));
+                        }
+                        var timeStamp = new Date();
+                        
+                        
+                        pruefungenExport = `${pruefungenExport}\
+\nBEGIN:VEVENT\
+\nUID:${pruefungen[i].id}@koelender.de\
+\nLOCATION:Raum\
+\nSUMMARY:${pruefungen[i].name}\
+\nDESCRIPTION:${pruefungen[i].name + 
+"\\nStudiengang: " + pruefungen[i].studiengang + 
+"\\nSemester: " + pruefungen[i].semester +
+"\\nPrüfer: " + pruefungen[i].pruefer}\
+\nDTSTART;VALUE=DATE-TIME:${this.toIcsTime(pruefungStart)}\
+\nDTEND;VALUE=DATE-TIME:${this.toIcsTime(pruefungEnd)}\
+\nDTSTAMP;VALUE=DATE-TIME:${this.toIcsTime(timeStamp)}\
+\nEND:VEVENT`;
+                        }
+                        
                         if(x%2===1){
                             pruefungenListe.push(<tr className = 'second'>{pruefungenInstance}</tr>)
                         } else {
@@ -144,12 +186,12 @@ export default class KalenderContent extends React.Component{
                         x++;
                     }
                 }
-
-                //console.log(typeof(pruefungenListe));
+                pruefungenExport = pruefungenExport+"\nEND:VCALENDAR";
+                this.state.pruefungenExport = pruefungenExport;
                 
             }  
             
-            
+           
 
             return(
                 <>
@@ -165,6 +207,15 @@ export default class KalenderContent extends React.Component{
                 </div>
 
                 <div id = "ov_content">
+
+                    <a style={{display: "none"}}
+                        download="koelender.ics"
+                        href={this.state.fileDownloadUrl}
+                        ref={e=>this.dofileDownload = e}
+                    >download it</a>
+
+                    <button id = "export_btn" onClick={()=>this.exportIcs(pruefungenExport.replace(' ', '').replace("\\t", ""))}>Export</button>
+                    
                     <h3 id = "header_overview">Übersicht</h3>
 
                     <table id = "overview_table">

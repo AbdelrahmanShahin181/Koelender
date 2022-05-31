@@ -1,11 +1,5 @@
-//const date = new Date();
-
-export function renderCalendar(infos, date) {
-
-    //console.log("function renderCalendar started");
-    //console.log(typeof(infos));
-    //console.log(infos[1]);
-
+export function renderCalendar(infos, date, instance) {
+    
     const month = date.getMonth();
     const lastDay = new Date(date.getFullYear(), date.getMonth()+1,0).getDate();
 
@@ -40,7 +34,6 @@ export function renderCalendar(infos, date) {
     let week = [];
     let event = [];
 
-
     for(let x=firstDayIndex-1; x!==0; x--) {
         
         if (x===-1) {
@@ -66,7 +59,7 @@ export function renderCalendar(infos, date) {
             for(let j = 0; j<infos[date.getMonth()*31+y].length; j++)
             if (infos[date.getMonth()*31+y][j][0] === date.getFullYear()) {
                 
-                event.push(<div onClick=/*{this.togglePopup.bind(this)}*/ {() => {console.log("test")}}>{infos[date.getMonth()*31+y][j][1]}</div>);
+                event.push(<div onClick={()=>{instance.togglePopup(infos[date.getMonth()*31+y][j])}} >{infos[date.getMonth()*31+y][j][1]}</div>);
                 
             }
             else {
@@ -103,21 +96,16 @@ export function renderCalendar(infos, date) {
     }
     days.push( <tr id = "oops">{week}</tr>);
 
-    //console.log(typeof(days));
-    return([days, date]);
-    
-    //monthDays.innerHTML = days;
+    return([days,date]);
 
 }
 
-
-export function prevMonth(infos, date){
-    //console.log(date.getMonth());
+export function prevMonth(infos, date, instance){
     date.setMonth(date.getMonth()-1);
-    return renderCalendar(infos, date);
+    return renderCalendar(infos, date, instance);
 }
 
-export function nextMonth(infos, date){
+export function nextMonth(infos, date, instance){
     date.setMonth(date.getMonth()+1);
-    return renderCalendar(infos, date);
+    return renderCalendar(infos, date, instance);
 }

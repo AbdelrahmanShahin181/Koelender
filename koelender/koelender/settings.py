@@ -11,7 +11,8 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 """
 
 from pathlib import Path
-import os 
+import os
+from pickle import TRUE 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -26,7 +27,12 @@ SECRET_KEY = 'django-insecure-4x#2mt*27n=vbf3olz16n%jvsinty$of5zhndd!(=e+22)vtz#
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    "192.168.0.105",
+    "192.168.0.83",
+    "0.0.0.0",
+    "localhost",
+]
 
 
 # Application definition
@@ -61,7 +67,13 @@ ROOT_URLCONF = 'koelender.urls'
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:8000",
     "http://localhost:3000",
+    "http://localhost",
+    "http://192.168.0.105:8000",
+    "http://192.168.0.105",
+    "http://192.168.0.83",
+    "http://192.168.0.46",
 ]
+
 
 TEMPLATES = [
     {

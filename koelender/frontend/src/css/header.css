@@ -14,11 +14,11 @@
 }
 
 #logo #rims{
-    fill: var(--light_color);
+    fill: var(--top_logo_color);
 }
 
 #logo #letters{
-    fill:var(--dark_color);
+    fill:var(--top_logo_letter_color);
 }
 
 #logo #letters g{
@@ -29,10 +29,10 @@
 
 #logo #letters {
     -webkit-filter: drop-shadow( 3px 3px 2px rgba(0, 0, 0, 0));
-    filter: drop-shadow( 0px 0px 1px var(--light_color))
-    drop-shadow( 0px 0px 1px var(--light_color))
-    drop-shadow( 0px 0px 1px var(--light_color))
-    drop-shadow( 0px 0px 1px var(--light_color));
+    filter: drop-shadow( 0px 0px 1px var(--top_logo_glow_color))
+    drop-shadow( 0px 0px 1px var(--top_logo_glow_color))
+    drop-shadow( 0px 0px 1px var(--top_logo_glow_color))
+    drop-shadow( 0px 0px 1px var(--top_logo_glow_color));
 }
 
 #logo:hover{
@@ -45,8 +45,8 @@
 }
 
 #topbar {
-    background-color: var(--dark_color);
-    z-index: 5;
+    background-color: var(--topbar_color);
+    z-index: 100;
     align-content:center;
 }
 
@@ -143,7 +143,7 @@
             display: block;
             width: 100%;
             height: 5px;
-            background-color: var(--light_color);
+            background-color: var(--hamburger_color);
             margin: 6px 0px;
             transition: 0.5s;
             border-radius: 3px;
@@ -179,11 +179,11 @@
 .filter_btn{
     position: fixed;
     z-index: 99;
-    top: 100px;
+    top: 108px;
     left: 0px;
     width: 75px;
     height: 25px;
-    border-color: var(--dark_color);
+    border-color: var(--page_button_border_color);
     transition: 0.5s;
     padding: 0 0 0 0;
     white-space: nowrap;

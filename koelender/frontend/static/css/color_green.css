@@ -1,0 +1,19 @@
+
+:root{
+
+        /*color_palette----------------------------------------------------------------------*/
+        /*dark*/
+        --light_color_dark_mode: #FFFFFF;
+        --light_medium_color_dark_mode: #96f793;
+        --medium_color_dark_mode: #146e11;
+        --medium_dark_color_dark_mode: #09440c;
+        --dark_color_dark_mode: #031f07;
+
+        /*light*/
+        --light_color: #daf2da;
+        --light_medium_color: #b3f7b0;
+        --medium_color: #4dde59;
+        --medium_dark_color: #009614;
+        --dark_color: #00610d;
+        
+}
