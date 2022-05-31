@@ -12,7 +12,9 @@ export default class Navigation extends React.Component{
             <div id={this.props.type + "_login"}>
                 <li><input type="text" name="search" placeholder="Username..."/></li>
                 <li><input  type="password" name="search" placeholder="Passwort..."/></li>
-                <li><button  type="button">Login</button></li>
+                <li><button  type="button" onClick={
+                    ()=>window.location.href = '/admin'
+                }>Login</button></li>
             </div>
         </ul>
     );}
