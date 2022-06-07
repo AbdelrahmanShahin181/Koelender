@@ -46,4 +46,7 @@
     --calendar_date_border_color: var(--dark_color);
     --calendar_date_background_color: var(--light_color);
 
+    --popup_color: var(--light_color);
+    --popup_background: rgba(0,0,0, 0.3);
+
 }

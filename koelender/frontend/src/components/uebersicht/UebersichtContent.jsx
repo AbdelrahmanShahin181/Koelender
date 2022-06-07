@@ -106,9 +106,7 @@ export default class KalenderContent extends React.Component{
                         <input type="checkbox" 
                             className="show" 
                             id={pruefungenKeys[i]+"_col"} 
-                            onChange={()=> {
-                                var col_name = pruefungenKeys[i]+"_col";
-                                var checkbox_val=document.getElementById(col_name).className;
+                            onChange={()=> {                                
                                 if(!hiddenColumns[i] )
                                 {   
                                     hiddenColumns[i] = true;
@@ -141,7 +139,7 @@ export default class KalenderContent extends React.Component{
                             pruefungenInstance.push(<td className = {pruefungenKeys[j]+'_col'}>{pruefungenValues[j]}</td>);
                         }
                         
-                        if(this.state.aktiveFilter[j]!==undefined&&this.state.aktiveFilter[j]!==null&&this.state.aktiveFilter[j]!=pruefungenValues[j]){
+                        if(this.state.aktiveFilter[j]!==undefined&&this.state.aktiveFilter[j]!==null&&this.state.aktiveFilter[j]!==pruefungenValues[j]){
                             filteredOut = true;
                         }
                         if(pruefungenValues[j]==null){
@@ -153,10 +151,26 @@ export default class KalenderContent extends React.Component{
                     }
                     
                     if(!filteredOut&&containsSearch) {
+
+                        let datum = "";
+                        if (pruefungen[i].datum.includes(".")) {
+                            let tag =  pruefungen[i].datum.split(".")[0];
+                            let monat =  pruefungen[i].datum.split(".")[1];
+                            let jahr =  pruefungen[i].datum.split(".")[2];
+                            datum = monat + "/" + tag + "/" + jahr;
+                        }
+                        else if (pruefungen[i].datum.includes("-")) {
+                            datum =  pruefungen[i].datum.split(" ")[0];
+                        }
+                        else {
+                            datum = pruefungen[i].datum;
+                        }
+
+                        console.log(datum);
                         
-                        var pruefungStart = new Date(pruefungen[i].datum+" "+pruefungen[i].startzeit);
+                        var pruefungStart = new Date(datum+" "+pruefungen[i].startzeit);
                         if(pruefungStart.getTime() === pruefungStart.getTime()){
-                        var pruefungEnd = new Date(pruefungen[i].datum+" "+pruefungen[i].startzeit);
+                        var pruefungEnd = new Date(datum+" "+pruefungen[i].startzeit);
                         if(pruefungen[i].dauer.trim === ""){
                             pruefungEnd.setMinutes(pruefungEnd.getMinutes()+parseInt(pruefungen[i].dauer));
                         }
@@ -166,7 +180,7 @@ export default class KalenderContent extends React.Component{
                         pruefungenExport = `${pruefungenExport}\
 \nBEGIN:VEVENT\
 \nUID:${pruefungen[i].id}@koelender.de\
-\nLOCATION:Raum\
+\nLOCATION:${pruefungen[i].pruefungsform}\
 \nSUMMARY:${pruefungen[i].name}\
 \nDESCRIPTION:${pruefungen[i].name + 
 "\\nStudiengang: " + pruefungen[i].studiengang + 

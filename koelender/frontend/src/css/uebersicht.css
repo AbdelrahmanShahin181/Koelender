@@ -152,6 +152,8 @@ th {
 #export_btn {
     position: fixed;
     left: calc(100% - 125px);
+    top: 108px;
+    border-color: var(--page_button_border_color);
 }
 
 

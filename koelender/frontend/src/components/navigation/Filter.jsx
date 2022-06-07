@@ -1,6 +1,6 @@
 import React from 'react';
 import fetchPruefungen from '../../js/fetch.js'
-import { updateState } from '../landing/Structure.jsx';
+//import { updateState } from '../landing/Structure.jsx';
 
 export default class Filter extends React.Component {
 
@@ -50,7 +50,7 @@ export default class Filter extends React.Component {
                 var pruefungenKeys = Object.keys(pruefungen[0]);
 
                 for(let i = 1; i<pruefungenKeys.length; i++){
-                    pruefungenOptionen[i] = new Array();
+                    pruefungenOptionen[i] = [];
                 }
 
                 for(let i = 0; i<pruefungen.length; i++) {
@@ -60,7 +60,7 @@ export default class Filter extends React.Component {
                             pruefungenValues[j] = "";
                             //console.log("Hallo1")
                         }
-                        else if((!pruefungenOptionen[j].some(x => x.trim().toLowerCase() == pruefungenValues[j].trim().toLowerCase()))) {
+                        else if((!pruefungenOptionen[j].some(x => x.trim().toLowerCase() === pruefungenValues[j].trim().toLowerCase()))) {
                             pruefungenOptionen[j].push(
                                 pruefungenValues[j].trim()
                             );

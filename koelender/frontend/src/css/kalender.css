@@ -80,6 +80,7 @@
     padding-bottom: 5px;
     background-color: var(--calendar_date_border_color);
     color: var(--writing_light_color);
+    cursor: pointer;
 }
 
 #content {
@@ -98,16 +99,17 @@
     font-size: 12px;
 }
 
-#content div {
+#event {
     z-index: 24;
     background-color: var(--calendar_appointment_color);
     color: var(--calendar_appointment_writing_color);
     margin-bottom: 2px;
     padding: 2px;
     cursor: pointer;
+    overflow: hidden;
 }
 
-#content div:hover {
+#event:hover {
     background-color: var(--calendar_appointment_hover_color);
     color: var(--calendar_appointment_writing_hover_color);
 }
@@ -166,7 +168,19 @@
     right: 0;
     bottom: 0;
     margin: auto;
-    background-color: rgba(0,0,0, 0.3);
+    background-color: var(--popup_background);
+}
+
+.popup_outer.inactive {
+    visibility: hidden;
+}
+
+#dayPopupOuter .popup_inner{
+    left: 3%;
+    right: 3%;
+    top: 6%;
+    bottom: 6%;
+    max-width: 600px;
 }
 
 .popup_inner {
@@ -178,9 +192,18 @@
     margin: auto;
     padding:25px;
     border-radius: 12px;
-    background: var(--light_color);
+    background: var(--popup_color);
     max-width: 480px;
     overflow:hide;
+}
+
+#dayPopup {
+    height: 100%;
+}
+
+#event_list{
+    height: 90%;
+    overflow:auto;
 }
 
 #popup_tableframe {
@@ -200,22 +223,25 @@
 }
 
 #popup_table {
-	display: table;
+	/*display: table;*/
     min-width: 0px;
     border-bottom: 0px;
 }
 #popup_table tr {
     width: 200px;
-	display: table-cell;
+	/*display: table-cell;*/
+    border-width: 2px;
+    border-style: solid;
+    border-color: var(--light_medium_color);
+    border-radius: 0px;
+}
+#popup_table tr td {
+    width: 184px;
+	/*display: block;*/
     border-width: 2px;
     border-style: solid;
     border-color: var(--light_medium_color);
     border-radius: 2px;
-}
-#popup_table tr td {
-    width: 184px;
-	display: block;
-    border-bottom: 0px;
 }
 
 #popup_table #categories {

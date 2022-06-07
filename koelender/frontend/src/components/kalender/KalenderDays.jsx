@@ -36,13 +36,28 @@ export function renderCalendar(infos, date, instance) {
 
     for(let x=firstDayIndex-1; x!==0; x--) {
         
+        if(typeof(infos[(date.getMonth()-1)*31+(lastMonthDays-x+1)]) !== "undefined") {
+            for(let j = 0; j<infos[(date.getMonth()-1)*31+(lastMonthDays-x+1)].length; j++)
+            if (infos[(date.getMonth()-1)*31+(lastMonthDays-x+1)][j][0] === date.getFullYear()) {
+                
+                event.push(<div id = "event" onClick={()=>{instance.togglePopup(infos[(date.getMonth()-1)*31+(lastMonthDays-x+1)][j])}} >{infos[(date.getMonth()-1)*31+(lastMonthDays-x+1)][j][1]}</div>);
+                
+            }
+            else {
+                event = [];
+            }
+        }
+        else {
+            event = [];
+        }
         if (x===-1) {
             x=6;
         }
         week.push( <td id="other_month" class="day">
-                <div id="date">{lastMonthDays-x+1}</div>
-                <div id="content" class = {"y" + date.getFullYear() + "d" + lastMonthDays-x+1 + "m" + date.getMonth()-1}>  </div>
+                <div id="date" onClick={()=>instance.showDayPopup("y" + date.getFullYear() + "d" + (lastMonthDays-x+1) + "m" + (date.getMonth()-1))}>{lastMonthDays-x+1}</div>
+                <div id="content" class = {"y" + date.getFullYear() + "d" + (lastMonthDays-x+1) + "m" + (date.getMonth()-1)}> {event} </div>
             </td>);
+        event = [];
         i++;
     }
 
@@ -59,7 +74,7 @@ export function renderCalendar(infos, date, instance) {
             for(let j = 0; j<infos[date.getMonth()*31+y].length; j++)
             if (infos[date.getMonth()*31+y][j][0] === date.getFullYear()) {
                 
-                event.push(<div onClick={()=>{instance.togglePopup(infos[date.getMonth()*31+y][j])}} >{infos[date.getMonth()*31+y][j][1]}</div>);
+                event.push(<div id = "event" onClick={()=>{instance.togglePopup(infos[date.getMonth()*31+y][j])}} >{infos[date.getMonth()*31+y][j][1]}</div>);
                 
             }
             else {
@@ -72,13 +87,13 @@ export function renderCalendar(infos, date, instance) {
         if(y===new Date().getDate() && date.getMonth()===new Date().getMonth() && date.getFullYear() === new Date().getFullYear()) {
             
             week.push( <td id="today" class="day">
-                    <div id="date">{y}</div>
+                    <div id="date" onClick={()=>instance.showDayPopup("y" + date.getFullYear() + "d" + y + "m" + date.getMonth())}>{y}</div>
                     <div id="content" class = {"y" + date.getFullYear() + "d" + y + "m" + date.getMonth()}> {event} </div>
                 </td>);
         }
         else {
             week.push( <td class="day">
-                    <div id="date">{y}</div>
+                    <div id="date" onClick={()=>instance.showDayPopup("y" + date.getFullYear() + "d" + y + "m" + date.getMonth())}>{y}</div>
                     <div id="content" class = {"y" + date.getFullYear() + "d" + y + "m" + date.getMonth()}> {event} </div>
                 </td>);
         }
@@ -87,11 +102,27 @@ export function renderCalendar(infos, date, instance) {
     }
     
     for(let y=1; !(i%7 === 1);y++) {
+
+        if(typeof(infos[(date.getMonth()+1)*31+y]) !== "undefined") {
+            for(let j = 0; j<infos[(date.getMonth()+1)*31+y].length; j++)
+            if (infos[(date.getMonth()+1)*31+y][j][0] === date.getFullYear()) {
+                
+                event.push(<div id = "event" onClick={()=>{instance.togglePopup(infos[(date.getMonth()+1)*31+y][j])}} >{infos[(date.getMonth()+1)*31+y][j][1]}</div>);
+                
+            }
+            else {
+                event = [];
+            }
+        }
+        else {
+            event = [];
+        }
         
         week.push( <td id="other_month" class="day">
-                <div id="date">{y}</div>
-                <div id="content" class = {"y" + date.getFullYear() + "d" + y + "m" + date.getMonth()+1}>  </div>
+                <div id="date" onClick={()=>instance.showDayPopup("y" + date.getFullYear() + "d" + y + "m" + (date.getMonth()+1))}>{y}</div>
+                <div id="content" class = {"y" + date.getFullYear() + "d" + y + "m" + (date.getMonth()+1)}> {event} </div>
             </td>);
+        event = [];
         i++;
     }
     days.push( <tr id = "oops">{week}</tr>);

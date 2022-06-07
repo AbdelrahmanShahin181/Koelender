@@ -23,7 +23,7 @@ export default class Structure extends React.Component {
             searchItem: '',
             stylePath: process.env.PUBLIC_URL + '/static/css/color.css',
         }
-        this.updateFilter = this.updateFilter;
+        //this.updateFilter = this.updateFilter;
         //const childIcs = React.useRef(null);
     }
 

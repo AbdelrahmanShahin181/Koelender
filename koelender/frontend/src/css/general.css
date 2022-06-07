@@ -1,6 +1,7 @@
 /*general-----------------------------------------------------------------------------*/
 
 #colorChange, #styleChange {
+    padding-left: 0px;
     display: inline-block;
     z-index: 200;
     list-style: none;
@@ -8,8 +9,15 @@
 #colorChange li, #styleChange li {
     margin: 10px;
 }
-#colorChange li button{
+#colorChange li button, #styleChange li button{
     text-transform: capitalize;
+    width: 150px;
+    min-width: 100px;
+    border-color: var(--page_button_border_color);
+}
+
+#style_buttons{
+    margin-left:10%;
 }
 
 body {
