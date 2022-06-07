@@ -7,8 +7,7 @@ export default class StyleButton extends React.Component{
         return(
             <li>
                 <button onClick={()=>{
-                    var colorPath = 
-                    process.env.PUBLIC_URL + '/static/css/color_'+this.props.file+'.css';
+                    var colorPath = process.env.PUBLIC_URL + '/static/css/color_'+this.props.file+'.css';
                     this.props.updateColorParent({colorPath});
                 }}>{this.props.color}</button>
             </li>
