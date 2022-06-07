@@ -1,4 +1,5 @@
 import React from 'react';
+import {ReactComponent as Gitlogo} from '../iconmonstr-github-1.svg'
 
 export default class Navigation extends React.Component{
     render() {
@@ -8,7 +9,7 @@ export default class Navigation extends React.Component{
                 <li><a href="/kalender">Kalender</a></li>
                 <li><a href="/uebersicht">Übersicht</a></li>
                 <li><a href="/styles">Styles</a></li>
-                <li><a href="/styles">Download</a></li>
+                <li><a href="https://github.com/AbdelrahmanShahin181/WebTech2"><Gitlogo></Gitlogo></a></li>
             </div>
             <div id={this.props.type + "_login"}>
                 <li><input type="text" name="search" placeholder="Username..."/></li>
