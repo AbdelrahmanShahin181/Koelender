@@ -153,13 +153,13 @@ export default class KalenderContent extends React.Component{
                     if(!filteredOut&&containsSearch) {
 
                         let datum = "";
-                        if (pruefungen[i].datum.includes(".")) {
+                        if (pruefungen[i].datum !=null&& pruefungen[i].datum.includes(".")) {
                             let tag =  pruefungen[i].datum.split(".")[0];
                             let monat =  pruefungen[i].datum.split(".")[1];
                             let jahr =  pruefungen[i].datum.split(".")[2];
                             datum = monat + "/" + tag + "/" + jahr;
                         }
-                        else if (pruefungen[i].datum.includes("-")) {
+                        else if (pruefungen[i].datum !=null && pruefungen[i].datum.includes("-")) {
                             datum =  pruefungen[i].datum.split(" ")[0];
                         }
                         else {
@@ -171,7 +171,7 @@ export default class KalenderContent extends React.Component{
                         var pruefungStart = new Date(datum+" "+pruefungen[i].startzeit);
                         if(pruefungStart.getTime() === pruefungStart.getTime()){
                         var pruefungEnd = new Date(datum+" "+pruefungen[i].startzeit);
-                        if(pruefungen[i].dauer.trim === ""){
+                        if(pruefungen[i].dauer !=null && pruefungen[i].dauer.trim === ""){
                             pruefungEnd.setMinutes(pruefungEnd.getMinutes()+parseInt(pruefungen[i].dauer));
                         }
                         var timeStamp = new Date();
