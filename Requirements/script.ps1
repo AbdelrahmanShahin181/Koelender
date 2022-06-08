@@ -64,6 +64,7 @@ python $PSScriptRoot\koelender_projekt\koelender\manage.py migrate
 
 
 
+
  
     
 
