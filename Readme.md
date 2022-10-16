@@ -6,3 +6,4 @@ Lokale Installation auf Windows:
 3. PowerShell-Skript "script.ps1" ausführen
 
 Koelender läuft dann auf http://localhost:8000
+ 
